@@ -1,48 +1,44 @@
+/* eslint-disable no-use-before-define */
 import React from 'react';
+import Chip from '@material-ui/core/Chip';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+import TextField from '@material-ui/core/TextField';
+import activities from '../activities.json'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: '2px 4px',
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: '50px',
-    marginTop: '50px'
-  },
-  input: {
-    marginLeft: theme.spacing(1),
-    flex: 1,
-  },
-  iconButton: {
-    padding: 10,
-  },
-  divider: {
-    height: 28,
-    margin: 4,
+    '& > * + *': {
+      marginTop: theme.spacing(3),
+    },
+    margin: 10
   },
 }));
 
-export default function CustomizedInputBase() {
+const SearchBar = ({ selected, onChange }) => {
   const classes = useStyles();
 
   return (
-    <Paper component="form" className={classes.root}>
-      <IconButton className={classes.iconButton} aria-label="menu">
-        <MenuIcon />
-      </IconButton>
-      <InputBase
-        className={classes.input}
-        placeholder="Search for activities"
-        inputProps={{ 'aria-label': 'search activities' }}
+    <div className={classes.root}> 
+      <Autocomplete
+        multiple
+        id="tags-filled"
+        options={activities.map((option) => option.name)}
+        value={selected}
+        onChange={(e, v) => onChange(v)}
+        freeSolo
+        filterSelectedOptions
+        renderTags={(value, getTagProps) =>
+          value.map((option, index) => (
+            <Chip variant="outlined" label={option} {...getTagProps({ index })} />
+          ))
+        }
+        renderInput={(params) => (
+          <TextField {...params} variant="outlined" label="Activities" placeholder="Search for activities" />
+        )}
       />
-      <IconButton type="submit" className={classes.iconButton} aria-label="search">
-        <SearchIcon />
-      </IconButton>
-    </Paper>
+    </div>
   );
 }
+
+export default SearchBar

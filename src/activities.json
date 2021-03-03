@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Gym",
+    "items": [
+      {
+        "name": "Towel",
+        "packs": 1000
+      },
+      {
+        "name": "Shorts",
+        "packs": 30
+      },
+      {
+        "name": "Water bottle",
+        "packs": 10303
+      }
+    ]
+  },
+  {
+    "name": "Skiing",
+    "items": [
+      {
+        "name": "Skis",
+        "packs": 1002
+      },
+      {
+        "name": "Beanie",
+        "packs": 30
+      }
+    ]
+  }
+]

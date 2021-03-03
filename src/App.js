@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from './components/Header'
 import ItemList from './components/ItemList'
 import SearchBar from './components/SearchBar'
@@ -14,13 +14,14 @@ const useStyles = makeStyles(() => ({
 
 const App = () => {
   const classes = useStyles()
+  const [ selectedActivities, setSelectedActivities ] = useState([])
 
   return (
     <div className={classes.root}>
       <Container>
         <Header />
-        <SearchBar />
-        <ItemList />
+        <SearchBar selected={selectedActivities} onChange={setSelectedActivities}/>
+        <ItemList selected={selectedActivities} />
       </Container>
     </div>
   )
