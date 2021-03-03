@@ -5,6 +5,7 @@ import {
   Typography
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import { generateColor } from '../utils'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,21 +30,38 @@ const EmptyListText = () => {
 const ItemList = ({ selected }) => {
   const classes = useStyles()
 
-  const items = 
-    activities
-      .filter(activity => selected.includes(activity.name))
-      .map(activity => activity.items)
-      .flat()
-      .sort((a, b) => b.packs - a.packs)
+  const selectedActivities = activities.filter(activity => selected.includes(activity.name))
+  const items = []
+  const compare = (a, b) => b.packs - a.packs
+
+  selectedActivities.forEach(activity => {
+    const bgColor = generateColor(activity.name, 50)
+
+    activity.items.forEach(item => {
+      const duplicate = 
+        items.findIndex(existingItem => item.name === existingItem.name)
+
+      if (duplicate !== -1) {
+        items[duplicate].packs += item.packs
+        items[duplicate].foundIn.push(activity.name)
+      } else {
+        items.push({
+          ...item,
+          bgColor,
+          foundIn: [ activity.name ]
+        })
+      }
+    })
+  })
 
   return (
     <div className={classes.root}>
       {
         !items.length
         ? <EmptyListText />
-        : items.map((item, i) =>
-            <ItemCard item={item} key={i} />
-          )
+        : items.sort(compare).map((item, i) => (
+          <ItemCard item={{...item, name: item.name}} key={i} />
+        ))
       }
     </div>
   )

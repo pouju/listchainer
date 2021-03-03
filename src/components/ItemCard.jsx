@@ -9,7 +9,6 @@ import { makeStyles } from '@material-ui/styles'
 const useStyles = makeStyles(( theme ) => ({
   card: {
     margin: '5px',
-    
   },
   content: {
     display: 'flex',
@@ -22,13 +21,13 @@ const ItemCard = ({ item }) => {
   const classes = useStyles()
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} style={{backgroundColor: item.bgColor}}>
       <CardContent className={classes.content}>
         <Typography variant="h6">
           {item.name}
         </Typography>
         <Typography color='textSecondary'>
-          {item.packs} packs
+          {item.packs} packs, included in: {item.foundIn.join(', ')}
         </Typography>
       </CardContent>
     </Card>

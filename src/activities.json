@@ -13,6 +13,10 @@
       {
         "name": "Water bottle",
         "packs": 10303
+      },
+      {
+        "name": "Phone",
+        "packs": 1000
       }
     ]
   },
@@ -26,6 +30,10 @@
       {
         "name": "Beanie",
         "packs": 30
+      },
+      {
+        "name": "Phone",
+        "packs": 999
       }
     ]
   }
