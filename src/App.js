@@ -1,11 +1,30 @@
-import './App.css';
+import React from 'react'
+import Header from './components/Header'
+import ItemList from './components/ItemList'
+import SearchBar from './components/SearchBar'
+import { makeStyles } from '@material-ui/styles'
+import {
+  Container
+} from '@material-ui/core'
 
-function App() {
+const useStyles = makeStyles(() => ({
+  root: {
+  }
+}))
+
+const App = () => {
+  const classes = useStyles()
+
   return (
-    <div className='App'>
-      Hello World
+    <div className={classes.root}>
+      <Container>
+        <Header />
+        <SearchBar />
+        <ItemList />
+      </Container>
     </div>
-  );
+  )
 }
 
-export default App;
+
+export default App
