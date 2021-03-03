@@ -15,12 +15,12 @@
         "packs": 10303
       },
       {
-        "name": "Gym shoes",
-        "packs": 8722
+        "name": "Phone",
+        "packs": 1000
       },
       {
         "name": "T-shirt",
-        "packs": 7600
+        "packs": 896
       }
     ]
   },
@@ -38,6 +38,10 @@
       {
         "name": "Poles",
         "packs": 986
+      },
+      {
+        "name": "Phone",
+        "packs": 999
       }
     ]
   },
