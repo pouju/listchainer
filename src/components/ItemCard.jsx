@@ -2,9 +2,12 @@ import React from 'react'
 import {
   Card,
   CardContent,
-  Typography
+  Typography,
+  Grid,
+  Box
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import PackItem from './PackItemCheckbox.jsx'
 
 const useStyles = makeStyles(( theme ) => ({
   card: {
@@ -23,12 +26,19 @@ const ItemCard = ({ item }) => {
   return (
     <Card className={classes.card} style={{backgroundColor: item.bgColor}}>
       <CardContent className={classes.content}>
-        <Typography variant="h6">
-          {item.name}
-        </Typography>
-        <Typography color='textSecondary'>
-          {item.packs} packs, included in: {item.foundIn.join(', ')}
-        </Typography>
+        <Grid container spacing={3}>
+          <Grid item xs={10}>
+            <Typography variant="h6">
+              {item.name}
+            </Typography>
+            <Typography color='textSecondary'>
+              {item.packs} packs, included in: {item.foundIn.join(', ')}
+            </Typography>
+          </Grid>
+          <Grid item xs={2}>
+            {PackItem()}
+          </Grid>
+        </Grid>
       </CardContent>
     </Card>
   )
