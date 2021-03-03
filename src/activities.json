@@ -13,6 +13,14 @@
       {
         "name": "Water bottle",
         "packs": 10303
+      },
+      {
+        "name": "Gym shoes",
+        "packs": 8722
+      },
+      {
+        "name": "T-shirt",
+        "packs": 7600
       }
     ]
   },
@@ -26,6 +34,260 @@
       {
         "name": "Beanie",
         "packs": 30
+      },
+      {
+        "name": "Poles",
+        "packs": 986
+      }
+    ]
+  },
+  {
+    "name": "Swimming",
+    "items": [
+      {
+        "name": "Swimsuit",
+        "packs": 5401
+      },
+      {
+        "name": "Snorkel",
+        "packs": 23
+      }
+    ]
+  },
+  {
+    "name": "Work",
+    "items": [
+      {
+        "name": "Laptop",
+        "packs": 12300
+      },
+      {
+        "name": "Charger",
+        "packs": 7633
+      },
+      {
+        "name": "Mouse",
+        "packs": 2347
+      }
+    ]
+  },
+  {
+    "name": "Downhill skiing",
+    "items": [
+      {
+        "name": "Skis",
+        "packs": 860
+      },
+      {
+        "name": "Helmet",
+        "packs": 548
+      },
+      {
+        "name": "Poles",
+        "packs": 852
+      },
+      {
+        "name": "Jacket",
+        "packs": 270
+      },
+      {
+        "name": "Goggles",
+        "packs": 540
+      }
+    ]
+  },
+  {
+    "name": "Fishing",
+    "items": [
+      {
+        "name": "Fishing rod",
+        "packs": 129
+      },
+      {
+        "name": "Baits",
+        "packs": 121
+      },
+      {
+        "name": "Boat",
+        "packs": 12
+      },
+      {
+        "name": "Hat",
+        "packs": 35
+      }
+    ]
+  },
+  {
+    "name": "Jogg",
+    "items": [
+      {
+        "name": "Running shoes",
+        "packs": 380
+      },
+      {
+        "name": "Earbuds",
+        "packs": 314
+      }
+    ]
+  },
+  {
+    "name": "Golf",
+    "items": [
+      {
+        "name": "Golf clubs",
+        "packs": 491
+      },
+      {
+        "name": "Gloves",
+        "packs": 376
+      },
+      {
+        "name": "Sunglasses",
+        "packs": 183
+      }
+    ]
+  },
+  {
+    "name": "Hiking",
+    "items": [
+      {
+        "name": "Hiking shoes",
+        "packs": 471
+      },
+      {
+        "name": "Backpack",
+        "packs": 460
+      },
+      {
+        "name": "Water",
+        "packs": 388
+      },
+      {
+        "name": "Sunglasses",
+        "packs": 155
+      }
+    ]
+  },
+  {
+    "name": "Camping",
+    "items": [
+      {
+        "name": "Tent",
+        "packs": 760
+      },
+      {
+        "name": "Food",
+        "packs": 631
+      },
+      {
+        "name": "Sleeping bag",
+        "packs": 739
+      },
+      {
+        "name": "Water",
+        "packs": 599
+      }
+    ]
+  },
+  {
+    "name": "Tennis",
+    "items": [
+      {
+        "name": "Racket",
+        "packs": 983
+      },
+      {
+        "name": "Balls",
+        "packs": 970
+      },
+      {
+        "name": "Tennis shoes",
+        "packs": 836
+      }
+    ]
+  },
+  {
+    "name": "Yoga",
+    "items": [
+      {
+        "name": "Yoga mat",
+        "packs": 983
+      },
+      {
+        "name": "Water bottle",
+        "packs": 970
+      }
+    ]
+  },
+  {
+    "name": "Football",
+    "items": [
+      {
+        "name": "Ball",
+        "packs": 6408
+      },
+      {
+        "name": "Goalkeeper gloves",
+        "packs": 881
+      },
+      {
+        "name": "Football boots",
+        "packs": 5474
+      }
+    ]
+  },
+  {
+    "name": "Karate",
+    "items": [
+      {
+        "name": "Belt",
+        "packs": 460
+      },
+      {
+        "name": "Karate uniform",
+        "packs": 498
+      },
+      {
+        "name": "Water bottle",
+        "packs": 227
+      },
+      {
+        "name": "Sparring gear",
+        "packs": 215
+      }
+    ]
+  },
+  {
+    "name": "Basketball",
+    "items": [
+      {
+        "name": "Ball",
+        "packs": 5260
+      },
+      {
+        "name": "Jersey",
+        "packs": 138
+      },
+      {
+        "name": "Basketball shoes",
+        "packs": 3204
+      }
+    ]
+  },
+  {
+    "name": "Grocery shopping",
+    "items": [
+      {
+        "name": "Bag",
+        "packs": 16285
+      },
+      {
+        "name": "Wallet",
+        "packs": 17530
+      },
+      {
+        "name": "Shopping list",
+        "packs": 8248
       }
     ]
   }
