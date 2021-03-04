@@ -32,7 +32,6 @@ const ItemList = ({ selected }) => {
 
   const selectedActivities = activities.filter(activity => selected.includes(activity.name))
   const items = []
-  const compare = (a, b) => b.packs - a.packs
 
   selectedActivities.forEach(activity => {
     const bgColor = generateColor(activity.name, 50)
@@ -59,7 +58,7 @@ const ItemList = ({ selected }) => {
       {
         !items.length
         ? <EmptyListText />
-        : items.sort(compare).map((item, i) => (
+        : items.sort((a, b) => b.packs - a.packs).map((item, i) => (
           <ItemCard item={{...item, name: item.name}} key={i} />
         ))
       }
