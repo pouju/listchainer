@@ -30,7 +30,7 @@ const ItemCard = ({ item }) => {
       <CardContent className={classes.content}>
         
         <Grid className={classes.grid}>
-          <Grid item xs={10}>
+          <Grid item xs={6}>
             <Typography variant="h6">
               {item.name}
             </Typography>
@@ -38,7 +38,7 @@ const ItemCard = ({ item }) => {
               included in: {item.foundIn.join(', ')}
             </Typography>
           </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={6} container justify='flex-end' alignItems="center">
               {PackItem(item.packs)}
             </Grid>
         </Grid>

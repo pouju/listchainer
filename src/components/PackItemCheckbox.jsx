@@ -31,7 +31,7 @@ const PackItem = (packs) => {
             <Typography color='textSecondary'>
                 {packed ? packs + 1 : packs } packed this item
             </Typography>
-            <FormControlLabel
+            <FormControlLabel 
                 control={<GreenCheckbox checked={packed.checked} onChange={handlePack} name="packed" />}
                 label="Pack"
             />
