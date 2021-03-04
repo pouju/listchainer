@@ -3,8 +3,7 @@ import {
   Card,
   CardContent,
   Typography,
-  Grid,
-  Box
+  Grid
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import PackItem from './PackItemCheckbox.jsx'
@@ -12,6 +11,9 @@ import PackItem from './PackItemCheckbox.jsx'
 const useStyles = makeStyles(( theme ) => ({
   card: {
     margin: '5px',
+  },
+  grid: {
+    display: 'flex'
   },
   content: {
     display: 'flex',
@@ -26,19 +28,21 @@ const ItemCard = ({ item }) => {
   return (
     <Card className={classes.card} style={{backgroundColor: item.bgColor}}>
       <CardContent className={classes.content}>
-        <Grid container spacing={3}>
+        
+        <Grid className={classes.grid}>
           <Grid item xs={10}>
             <Typography variant="h6">
               {item.name}
             </Typography>
             <Typography color='textSecondary'>
-              {item.packs} packs, included in: {item.foundIn.join(', ')}
+              included in: {item.foundIn.join(', ')}
             </Typography>
           </Grid>
-          <Grid item xs={2}>
-            {PackItem()}
-          </Grid>
+            <Grid item xs={2}>
+              {PackItem(item.packs)}
+            </Grid>
         </Grid>
+
       </CardContent>
     </Card>
   )

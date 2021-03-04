@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { Typography } from '@material-ui/core';
 
 
 const GreenCheckbox = withStyles({
@@ -18,20 +19,23 @@ const GreenCheckbox = withStyles({
 
 
 
-const PackItem = () => {
-    const [state, setState] = React.useState({
-        packed: false,
-    });
+const PackItem = (packs) => {
+    const [packed, setPack] = React.useState(false)
     
-    const handleChange = (event) => {
-        setState({ ...state, [event.target.name]: event.target.checked });
-    };
+    const handlePack = () => {
+        setPack(!packed)
+    }    
     
     return (
-        <FormControlLabel
-            control={<GreenCheckbox checked={state.packed} onChange={handleChange} name="packed" />}
-            label="Pack"
-        />
+        <>
+            <Typography color='textSecondary'>
+                {packed ? packs + 1 : packs } packed this item
+            </Typography>
+            <FormControlLabel
+                control={<GreenCheckbox checked={packed.checked} onChange={handlePack} name="packed" />}
+                label="Pack"
+            />
+        </>
     )
     
 }
