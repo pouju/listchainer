@@ -19,12 +19,8 @@ const GreenCheckbox = withStyles({
 
 
 
-const PackItem = (packs) => {
+const PackItem = ({ packs }) => {
     const [packed, setPack] = React.useState(false)
-    
-    const handlePack = () => {
-        setPack(!packed)
-    }    
     
     return (
         <>
@@ -32,12 +28,11 @@ const PackItem = (packs) => {
                 {packed ? packs + 1 : packs } packed this item
             </Typography>
             <FormControlLabel 
-                control={<GreenCheckbox checked={packed.checked} onChange={handlePack} name="packed" />}
+                control={<GreenCheckbox checked={packed.checked} onChange={() => setPack(!packed)} name="packed" />}
                 label="Pack"
             />
         </>
     )
-    
 }
 
 export default PackItem

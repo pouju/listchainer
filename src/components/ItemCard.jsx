@@ -39,7 +39,7 @@ const ItemCard = ({ item }) => {
             </Typography>
           </Grid>
             <Grid item xs={6} container justify='flex-end' alignItems="center">
-              {PackItem(item.packs)}
+              <PackItem packs={item.packs} />
             </Grid>
         </Grid>
 
