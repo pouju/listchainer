@@ -1,9 +1,9 @@
 /* eslint-disable no-use-before-define */
-import React from 'react';
-import Chip from '@material-ui/core/Chip';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import React from 'react'
+import Chip from '@material-ui/core/Chip'
+import Autocomplete from '@material-ui/lab/Autocomplete'
+import { makeStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
 import activities from '../activities.json'
 import { generateColor } from '../utils'
 
@@ -14,10 +14,10 @@ const useStyles = makeStyles((theme) => ({
     },
     margin: 10
   },
-}));
+}))
 
 const SearchBar = ({ selected, onChange }) => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <div className={classes.root}> 
@@ -34,7 +34,8 @@ const SearchBar = ({ selected, onChange }) => {
             <Chip 
               variant="outlined" 
               label={option} {...getTagProps({ index })} 
-              style={{backgroundColor: generateColor(option, 100)}} 
+              style={{ backgroundColor: generateColor(option, 100) }} 
+              key={index}
             />
           ))
         }
@@ -43,7 +44,7 @@ const SearchBar = ({ selected, onChange }) => {
         )}
       />
     </div>
-  );
+  )
 }
 
 export default SearchBar

@@ -26,7 +26,7 @@ const ItemCard = ({ item }) => {
   const classes = useStyles()
 
   return (
-    <Card className={classes.card} style={{backgroundColor: item.bgColor}}>
+    <Card className={classes.card} style={{ backgroundColor: item.bgColor }}>
       <CardContent className={classes.content}>
         
         <Grid className={classes.grid}>
@@ -38,9 +38,9 @@ const ItemCard = ({ item }) => {
               included in: {item.foundIn.join(', ')}
             </Typography>
           </Grid>
-            <Grid item xs={6} container justify='flex-end' alignItems="center">
-              <PackItem packs={item.packs} />
-            </Grid>
+          <Grid item xs={6} container justify='flex-end' alignItems="center">
+            <PackItem packs={item.packs} />
+          </Grid>
         </Grid>
 
       </CardContent>

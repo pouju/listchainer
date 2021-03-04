@@ -57,10 +57,10 @@ const ItemList = ({ selected }) => {
     <div className={classes.root}>
       {
         !items.length
-        ? <EmptyListText />
-        : items.sort((a, b) => b.packs - a.packs).map((item, i) => (
-          <ItemCard item={{...item, name: item.name}} key={i} />
-        ))
+          ? <EmptyListText />
+          : items.sort((a, b) => b.packs - a.packs).map((item, i) => (
+            <ItemCard item={{ ...item, name: item.name }} key={i} />
+          ))
       }
     </div>
   )
