@@ -294,5 +294,26 @@
         "packs": 8248
       }
     ]
+  },
+  {
+    "name": "Studying",
+    "items": [
+      {
+        "name": "Laptop",
+        "packs": 877
+      },
+      {
+        "name": "Charger",
+        "packs": 460
+      },
+      {
+        "name": "Notebook",
+        "packs": 600
+      },
+      {
+        "name": "Phone",
+        "packs": 999
+      }
+    ]
   }
 ]
