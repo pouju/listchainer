@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Header from './components/Header'
 import ItemList from './components/ItemList'
 import SearchBar from './components/SearchBar'
+import Footer from './components/Footer'
 import { makeStyles } from '@material-ui/styles'
 import {
   Container
@@ -22,6 +23,7 @@ const App = () => {
         <Header />
         <SearchBar selected={selectedActivities} onChange={setSelectedActivities}/>
         <ItemList selected={selectedActivities} />
+        <Footer />
       </Container>
     </div>
   )

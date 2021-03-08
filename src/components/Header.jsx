@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
+import { Typography, AppBar, Toolbar} from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles(() => ({
@@ -7,6 +7,9 @@ const useStyles = makeStyles(() => ({
     margin: '50px',
     display: 'flex',
     justifyContent: 'center'
+  },
+  appbar: {
+    alignItems: 'center',
   }
 }))
 
@@ -15,9 +18,14 @@ const Header = () => {
 
   return (
     <div className={classes.header}>
-      <Typography variant="h2">
-        ListChainer
-      </Typography>
+      <AppBar className={classes.appbar}>
+        <Toolbar>
+          <Typography variant="h4">
+            Listchainer
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    
     </div>
   )
 }
