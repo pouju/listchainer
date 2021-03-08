@@ -28,18 +28,9 @@ const PackItem = ({ packs }) => {
   const classes = useStyles()
 
   return (
-    <>
-      <div className={classes.packCount}>
-        <Typography color='textSecondary'>
-                    packed {packed ? packs + 1 : packs } times
-        </Typography>
-      </div>
-      <div className="pack-checkbox">
-        <FormControlLabel 
-          control={<GreenCheckbox checked={packed.checked} onChange={() => setPack(!packed)} name="packed" />}
-        />
-      </div>
-    </>
+    <FormControlLabel 
+      control={<GreenCheckbox checked={packed.checked} onChange={() => setPack(!packed)} name="packed" />}
+    />
   )
 }
 
