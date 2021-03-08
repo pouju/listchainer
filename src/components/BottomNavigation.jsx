@@ -1,22 +1,22 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
-import FolderIcon from '@material-ui/icons/Folder'
-import RestoreIcon from '@material-ui/icons/Restore'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import LocationOnIcon from '@material-ui/icons/LocationOn'
+import HomeIcon from '@material-ui/icons/Home'
+import SettingsIcon from '@material-ui/icons/Settings'
+import CreateIcon from '@material-ui/icons/Create'
 
 const useStyles = makeStyles({
   root: {
     width: 500,
-    background: 'GRAY'
+    background: '#DDFFF1'
   }
 })
 
 const LabelBottomNavigation = () => {
   const classes = useStyles()
-  const [value, setValue] = React.useState('recents')
+  const [value, setValue] = React.useState('home')
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -24,10 +24,9 @@ const LabelBottomNavigation = () => {
 
   return (
     <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
-      <BottomNavigationAction label="Recents" value="recents" icon={<RestoreIcon />} />
-      <BottomNavigationAction label="Favorites" value="favorites" icon={<FavoriteIcon />} />
-      <BottomNavigationAction label="Nearby" value="nearby" icon={<LocationOnIcon />} />
-      <BottomNavigationAction label="Folder" value="folder" icon={<FolderIcon />} />
+      <BottomNavigationAction component={Link} to="/" label="Home" value="home" icon={<HomeIcon />} />
+      <BottomNavigationAction component={Link} to="/chains" label="Chains" value="chains" icon={<CreateIcon />} />
+      <BottomNavigationAction component={Link} to="/settings" label="Settings" value="settings" icon={<SettingsIcon />} />
     </BottomNavigation>
   )
 }

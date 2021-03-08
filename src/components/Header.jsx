@@ -10,7 +10,9 @@ const useStyles = makeStyles(() => ({
   },
   appbar: {
     alignItems: 'center',
-    position: 'top'
+    position: 'fixed',
+    background: '#DDFFF1',
+    color: 'BLACK'
   }
 }))
 

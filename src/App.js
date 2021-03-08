@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { Route, HashRouter } from "react-router-dom"
 import Header from './components/Header'
-import ItemList from './components/ItemList'
-import SearchBar from './components/SearchBar'
 import Footer from './components/Footer'
 import { makeStyles } from '@material-ui/styles'
 import {
   Container
 } from '@material-ui/core'
+
+import Home from './components/Home'
+import Settings from './components/Settings'
+import Chains from './components/Chains'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -15,9 +18,8 @@ const useStyles = makeStyles(() => ({
 
 const App = () => {
   const classes = useStyles()
-  const [ selectedActivities, setSelectedActivities ] = useState([])
 
-  return (
+  {/*
     <div className={classes.root}>
       <Container>
         <Header />
@@ -26,7 +28,24 @@ const App = () => {
         <Footer />
       </Container>
     </div>
+    */}
+
+  return (
+      <HashRouter>
+        <div className={classes.root}>
+          <Container>
+            <Header />
+            <Route exact path="/" component={Home}/>
+            <Route path="/settings" component={Settings}/>
+            <Route path="/chains" component={Chains}/>
+            
+            <Footer />
+          </Container>
+        </div>
+      </HashRouter>
   )
+
+  
 }
 
 
