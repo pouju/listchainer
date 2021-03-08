@@ -24,7 +24,7 @@ const SearchBar = ({ selected, onChange }) => {
       <Autocomplete
         multiple
         id="tags-filled"
-        options={activities.map((option) => option.name).sort((a, b) => a !== b ? a < b ? -1 : 1 : 0)
+        options={activities.map((option) => option.name).sort((a, b) => a.localeCompare(b))
         }
         value={selected}
         onChange={(e, v) => onChange(v)}
