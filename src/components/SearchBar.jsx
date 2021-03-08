@@ -4,7 +4,6 @@ import Chip from '@material-ui/core/Chip'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import activities from '../activities.json'
 import { generateColor } from '../utils'
 
 const useStyles = makeStyles((theme) => ({
@@ -16,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const SearchBar = ({ selected, onChange }) => {
+const SearchBar = ({ activities, selectedActivities, onChange }) => {
   const classes = useStyles()
 
   return (
@@ -24,9 +23,8 @@ const SearchBar = ({ selected, onChange }) => {
       <Autocomplete
         multiple
         id="tags-filled"
-        options={activities.map((option) => option.name).sort((a, b) => a.localeCompare(b))
-        }
-        value={selected}
+        options={activities.map((option) => option.name)}
+        value={selectedActivities}
         onChange={(e, v) => onChange(v)}
         freeSolo
         filterSelectedOptions

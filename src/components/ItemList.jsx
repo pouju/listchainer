@@ -1,11 +1,9 @@
 import React from 'react'
-import ItemCard from './ItemCard'
-import activities from '../activities.json'
 import {
   Typography
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { generateColor } from '../utils'
+import ActivityAccordion from './ActivityAccordion'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,40 +25,19 @@ const EmptyListText = () => {
   )
 }
 
-const ItemList = ({ selected }) => {
+const ItemList = ({ activities, selectedActivities, selectedItems, setSelectedItems }) => {
   const classes = useStyles()
-
-  const selectedActivities = activities.filter(activity => selected.includes(activity.name))
-  const items = []
-
-  selectedActivities.forEach(activity => {
-    const bgColor = generateColor(activity.name, 50)
-
-    activity.items.forEach(item => {
-      const duplicate = 
-        items.findIndex(existingItem => item.name === existingItem.name)
-
-      if (duplicate !== -1) {
-        items[duplicate].packs += item.packs
-        items[duplicate].foundIn.push(activity.name)
-      } else {
-        items.push({
-          ...item,
-          bgColor,
-          foundIn: [ activity.name ]
-        })
-      }
-    })
-  })
 
   return (
     <div className={classes.root}>
       {
-        !items.length
+        !selectedActivities.length
           ? <EmptyListText />
-          : items.sort((a, b) => b.packs - a.packs).map((item, i) => (
-            <ItemCard item={{ ...item, name: item.name }} key={i} />
-          ))
+          : activities
+            .filter(activity => selectedActivities.includes(activity.name))
+            .map((activity, i) =>
+              <ActivityAccordion activity={activity} key={i} selected={selectedItems} setSelected={setSelectedItems} />
+            )
       }
     </div>
   )
