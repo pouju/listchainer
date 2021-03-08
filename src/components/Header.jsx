@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography, AppBar, Toolbar} from '@material-ui/core'
+import { Typography, AppBar, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles(() => ({
@@ -10,6 +10,7 @@ const useStyles = makeStyles(() => ({
   },
   appbar: {
     alignItems: 'center',
+    position: 'top'
   }
 }))
 

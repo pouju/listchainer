@@ -1,9 +1,6 @@
 import React from 'react'
-import { 
-    AppBar,  
-    Toolbar} from '@material-ui/core'; 
+import { AppBar, Toolbar } from '@material-ui/core'
 import BottomNavigation from './BottomNavigation'
-
 import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles(() => ({
@@ -23,7 +20,7 @@ const useStyles = makeStyles(() => ({
 
 const Footer = () => {
   const classes = useStyles()
-
+  
   return (
     <div className={classes.footer}>
       <AppBar className={classes.appBar}>
@@ -34,6 +31,5 @@ const Footer = () => {
     </div>
   )
 }
-
 
 export default Footer
