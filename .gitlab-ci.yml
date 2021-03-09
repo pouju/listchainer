@@ -1,0 +1,17 @@
+stages:
+  - build
+  - docker-build
+  - deploy
+
+docker-build:
+  stage: docker-build
+  image: docker:latest
+  script:
+    - docker build -t listchainer .
+
+deploy:
+  stage: deploy
+  script:
+    - docker kill listchainer || true
+    - docker container rm listchainer || true 
+    - docker run -d -p 80:80 --name listchainer listchainer
