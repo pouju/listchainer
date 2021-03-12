@@ -28,6 +28,14 @@ const generateColor = (activityName, shade) => {
   return colors[sum % colors.length][shade]
 }
 
+const isTouchDevice = () => {
+  if ('ontouchstart' in window) {
+    return true
+  }
+  return false
+}
+
 export {
-  generateColor
+  generateColor,
+  isTouchDevice
 }

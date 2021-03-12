@@ -9,12 +9,18 @@ import {
 
 import Home from './components/Home'
 import Settings from './components/Settings'
-import Chains from './components/Chains'
+import MyLists from './components/MyLists'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { isTouchDevice } from './utils'
+import { TouchBackend } from 'react-dnd-touch-backend'
 
 const useStyles = makeStyles(() => ({
   root: {
   }
 }))
+
+const backendForDND = isTouchDevice() ? TouchBackend : HTML5Backend
 
 const App = () => {
   const classes = useStyles()
@@ -24,9 +30,11 @@ const App = () => {
       <HashRouter>
         <Container>
           <Header />
-          <Route exact path="/" component={Home}/>
-          <Route path="/settings" component={Settings}/>
-          <Route path="/chains" component={Chains}/>      
+          <DndProvider backend={backendForDND}>
+            <Route exact path="/" component={Home}/>
+            <Route path="/settings" component={Settings}/>
+            <Route path="/mylists" component={MyLists}/>
+          </DndProvider>      
           <Footer />
         </Container>
       </HashRouter>  

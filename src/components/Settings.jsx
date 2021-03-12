@@ -10,7 +10,7 @@ const Settings = () => {
   const classes = useStyles()
 
   return (
-    <div >
+    <div>
       <Typography variant="h4">
         Settings Page
       </Typography>
