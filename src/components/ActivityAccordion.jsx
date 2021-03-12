@@ -60,7 +60,7 @@ const ActivityAccordion = ({ activity, activities, setActivities, selected, setS
       selected={isSelected(item.name)}
     >
       <TableCell>{item.name}</TableCell>
-      <TableCell>packed {item.packs} times</TableCell>
+      {/* <TableCell>packed {item.packs} times</TableCell> */}
       <TableCell padding="checkbox">
         <Checkbox
           checked={isSelected(item.name)}
