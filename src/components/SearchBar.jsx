@@ -18,12 +18,19 @@ const useStyles = makeStyles((theme) => ({
 const SearchBar = ({ activities, selectedActivities, onChange }) => {
   const classes = useStyles()
 
+  const activityNames = () => (
+    Object.entries(activities)
+      .sort(([ak, av], [bk , bv]) => ak > bk ? 1 : -1)
+      .sort(([ak, av], [bk , bv]) => bv.pinned - av.pinned)
+      .map(([key, value]) => key)
+  )
+
   return (
     <div className={classes.root}> 
       <Autocomplete
         multiple
         id="tags-filled"
-        options={activities.map((option) => option.name)}
+        options={activityNames()}
         value={selectedActivities}
         onChange={(e, v) => onChange(v)}
         freeSolo

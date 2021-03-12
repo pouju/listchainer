@@ -25,18 +25,37 @@ const EmptyListText = () => {
   )
 }
 
-const ItemList = ({ activities, selectedActivities, selectedItems, setSelectedItems }) => {
+const ItemList = ({ activities, setActivities, selectedActivities, selectedItems, setSelectedItems }) => {
   const classes = useStyles()
+
+  const filterActivities = () => (
+    Object.entries(activities)
+      .filter(([name, v]) => selectedActivities.includes(name))
+      .sort(([ak, av], [bk , bv]) => ak > bk ? 1 : -1)
+      .sort(([ak, av], [bk , bv]) => bv.pinned - av.pinned)
+      .map(([key, value]) => (
+        {
+          name: key,
+          items: value.items
+        }
+      ))
+  )
 
   return (
     <div className={classes.root}>
       {
         !selectedActivities.length
           ? <EmptyListText />
-          : activities
-            .filter(activity => selectedActivities.includes(activity.name))
+          : filterActivities()
             .map((activity, i) =>
-              <ActivityAccordion activity={activity} key={i} selected={selectedItems} setSelected={setSelectedItems} />
+              <ActivityAccordion 
+                activity={activity} 
+                activities={activities}
+                setActivities={setActivities}
+                selected={selectedItems} 
+                setSelected={setSelectedItems}
+                key={i} 
+              />
             )
       }
     </div>

@@ -12,14 +12,15 @@ const comparator = (a, b) => a.name < b.name ? -1 : 1     // Sort alphabetically
 
 const getCachedActivities = () => {
   const cache = window.localStorage.getItem('cachedActivities')
+
   return cache
-    ? JSON.parse(cache).sort(comparator)
+    ? JSON.parse(cache)
     : undefined
 }
 
 const Home = () => {
   const classes = useStyles()
-  const [ activities, setActivities ] = useState(getCachedActivities() || presets.sort(comparator))
+  const [ activities, setActivities ] = useState(getCachedActivities() || presets)
   const [ selectedActivities, setSelectedActivities ] = useState([])
   const [ selectedItems, setSelectedItems ] = useState([])
 
