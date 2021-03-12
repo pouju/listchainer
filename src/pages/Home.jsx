@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
-import ItemList from './ItemList'
-import SearchBar from './SearchBar'
+import ActivityList from '../components/ActivityList'
+import SearchBar from '../components/SearchBar'
 import presets from '../activities.json'
 
 const useStyles = makeStyles(() => ({
-  
+  root: {
+    display: 'flex',
+    flexDirection: 'column'
+  }
 }))
-
-const comparator = (a, b) => a.name < b.name ? -1 : 1     // Sort alphabetically
 
 const getCachedActivities = () => {
   const cache = window.localStorage.getItem('cachedActivities')
+
   return cache
-    ? JSON.parse(cache).sort(comparator)
+    ? JSON.parse(cache)
     : undefined
 }
 
 const Home = () => {
   const classes = useStyles()
-  const [ activities, setActivities ] = useState(getCachedActivities() || presets.sort(comparator))
+  const [ activities, setActivities ] = useState(getCachedActivities() || presets)
   const [ selectedActivities, setSelectedActivities ] = useState([])
   const [ selectedItems, setSelectedItems ] = useState([])
 
@@ -28,16 +30,17 @@ const Home = () => {
   }, [ activities ])
 
   return (
-    <div>
+    <div className={classes.root}>
       <SearchBar 
-        activities={activities} 
-        selectedActivities={selectedActivities} 
-        onChange={setSelectedActivities}
-      />
-      <ItemList 
         activities={activities} 
         setActivities={setActivities}
         selectedActivities={selectedActivities} 
+        setSelectedActivities={setSelectedActivities}
+      />
+      <ActivityList 
+        activities={activities} 
+        setActivities={setActivities}
+        selectedActivities={selectedActivities}
         selectedItems={selectedItems}
         setSelectedItems={setSelectedItems}
       />

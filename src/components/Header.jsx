@@ -4,15 +4,19 @@ import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles(() => ({
   header: {
-    margin: '50px',
+    margin: '80px',
     display: 'flex',
     justifyContent: 'center'
   },
   appbar: {
     alignItems: 'center',
     position: 'fixed',
-    background: '#DDFFF1',
-    color: 'BLACK'
+    background: '#A9FFD6',
+    color: 'BLACK',
+    height: '64px'
+  },
+  image: {
+    marginRight: '20px'
   }
 }))
 
@@ -23,12 +27,12 @@ const Header = () => {
     <div className={classes.header}>
       <AppBar className={classes.appbar}>
         <Toolbar>
+          <img className={classes.image} src='logo.png' height='64px' />
           <Typography variant="h4">
             Listchainer
           </Typography>
         </Toolbar>
       </AppBar>
-    
     </div>
   )
 }

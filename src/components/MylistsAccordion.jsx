@@ -32,9 +32,9 @@ const MyListsAccordion = ({ list, handleDelete }) => {
     <TableRow
       hover
       tabIndex={-1}
-      key={item.name}
+      key={item[0]}
     >
-      <TableCell>{item.name}</TableCell>
+      <TableCell>{item[0]}</TableCell>
     </TableRow>
   )
   

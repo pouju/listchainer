@@ -15,15 +15,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const MylistSearchBar = ({ lists, mylists, onChange }) => {
+const MylistSearchBar = ({ lists, onChange }) => {
   const classes = useStyles()
 
   return (
     <div className={classes.root}> 
       <Autocomplete
         id="mylistselection"
-        options={lists.map((option) => option.name)}
-        value={mylists}
+        options={lists}
         onChange={(e, v) => onChange(v)}
         //freeSolo
         filterSelectedOptions

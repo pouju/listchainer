@@ -50,7 +50,7 @@ const MovableItemList = ({ items, moveItem }) => {
       <MovableItem
         contentItem={item}
         index={index}
-        key={`${item.id}-item`}
+        key={`${item.props.id}-movable-item`}
         moveItem={moveItem}
       >
       </MovableItem>

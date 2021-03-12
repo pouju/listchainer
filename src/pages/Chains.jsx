@@ -6,16 +6,16 @@ const useStyles = makeStyles(() => ({
   
 }))
 
-const Settings = () => {
+const Chains = () => {
   const classes = useStyles()
 
   return (
-    <div>
+    <div >
       <Typography variant="h4">
-        Settings Page
+        Chain Page
       </Typography>
     </div>
   )
 }
 
-export default Settings
+export default Chains

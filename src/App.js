@@ -7,9 +7,9 @@ import {
   Container
 } from '@material-ui/core'
 
-import Home from './components/Home'
-import Settings from './components/Settings'
-import MyLists from './components/MyLists'
+import Home from './pages/Home'
+import Settings from './pages/Settings'
+import MyLists from './pages/MyLists'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { isTouchDevice } from './utils'
