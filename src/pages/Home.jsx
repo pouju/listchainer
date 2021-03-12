@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
-import ItemList from './ItemList'
-import SearchBar from './SearchBar'
+import ItemList from '../components/ItemList'
+import SearchBar from '../components/SearchBar'
 import presets from '../activities.json'
 
 const useStyles = makeStyles(() => ({

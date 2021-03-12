@@ -7,9 +7,9 @@ import {
   Container
 } from '@material-ui/core'
 
-import Home from './components/Home'
-import Settings from './components/Settings'
-import Chains from './components/Chains'
+import Home from './pages/Home'
+import Settings from './pages/Settings'
+import Chains from './pages/Chains'
 
 const useStyles = makeStyles(() => ({
   root: {
