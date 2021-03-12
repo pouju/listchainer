@@ -19,17 +19,18 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   heading: {
-    flexBasis: '70%',
     flexShrink: 0,
     alignSelf: 'center',
-    display: 'flex'
+    display: 'flex',
+    marginRight: 20
   },
   secondaryHeading: {
-    alignSelf: 'center'
+    alignSelf: 'center',
+    marginLeft: 'auto',
+    marginRight: 20
   },
   iconButton: {
     float: 'right',
-    marginLeft: 'auto'
   },
   pinIcon: {
     marginRight: '10px'
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ActivityAccordion = ({ activity, activities, setActivities, selected, setSelected }) => {
   const classes = useStyles()
-  const backgroundColor = generateColor(activity.name, 100)
+  const backgroundColor = generateColor(activity.name)
 
   const getItems = (
     Object.entries(activity.items)
@@ -58,9 +59,7 @@ const ActivityAccordion = ({ activity, activities, setActivities, selected, setS
 
   return (
     <Accordion style={{ backgroundColor }}>
-      <AccordionSummary
-        expandIcon={<ExpandMore />}
-      >
+      <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography className={classes.heading}>
           {activity.pinned ? <PinIcon className={classes.pinIcon}/> : <></>}
           {activity.name}
@@ -69,7 +68,6 @@ const ActivityAccordion = ({ activity, activities, setActivities, selected, setS
           {getItems.filter(item => selected.includes(item.name)).length} / {getItems.length} packed
         </Typography>
         <IconButton 
-          size='small' 
           className={classes.iconButton} 
           onClick={(event) => togglePin(event, activity.name)}
         >

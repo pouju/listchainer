@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
     '& > * + *': {
       marginTop: theme.spacing(3),
     },
-    margin: 10
   },
   iconButton: {
     marginLeft: 'auto'
@@ -63,7 +62,7 @@ const SearchBar = ({ activities, setActivities, selectedActivities, setSelectedA
     <>
       {activities[option].pinned ? <PinIcon className={classes.pinIcon} /> : <></>}
       {option}
-      <IconButton size='small' className={classes.iconButton} onClick={(event) => deleteActivity(event, option)}>
+      <IconButton className={classes.iconButton} onClick={(event) => deleteActivity(event, option)}>
         <Delete />
       </IconButton>
     </>
@@ -85,7 +84,7 @@ const SearchBar = ({ activities, setActivities, selectedActivities, setSelectedA
             <Chip 
               variant="outlined" 
               label={option} {...getTagProps({ index })} 
-              style={{ backgroundColor: generateColor(option, 100) }} 
+              style={{ backgroundColor: generateColor(option) }} 
               key={index}
             />
           ))

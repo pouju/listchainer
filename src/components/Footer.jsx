@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
     position: 'fixed',
     bottom: 0,
     alignItems: 'center',
-    background: '#DDFFF1'
+    background: '#A9FFD6'
   }
 }))
 

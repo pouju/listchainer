@@ -89,7 +89,7 @@ const ActivityContent = ({ activity, items, activities, setActivities, selected,
       <TableCell>{item.name}</TableCell>
       {/* <TableCell>packed {item.packs} times</TableCell> */}
       <TableCell>
-        <IconButton size='small' className={classes.iconButton} onClick={(event) => deleteItem(event, item)}>
+        <IconButton className={classes.iconButton} onClick={(event) => deleteItem(event, item)}>
           <Delete />
         </IconButton>
       </TableCell>

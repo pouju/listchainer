@@ -5,7 +5,10 @@ import SearchBar from '../components/SearchBar'
 import presets from '../activities.json'
 
 const useStyles = makeStyles(() => ({
-  
+  root: {
+    display: 'flex',
+    flexDirection: 'column'
+  }
 }))
 
 const getCachedActivities = () => {
@@ -27,7 +30,7 @@ const Home = () => {
   }, [ activities ])
 
   return (
-    <div>
+    <div className={classes.root}>
       <SearchBar 
         activities={activities} 
         setActivities={setActivities}
