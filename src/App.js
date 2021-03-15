@@ -10,6 +10,7 @@ import {
 import Home from './pages/Home'
 import Settings from './pages/Settings'
 import MyLists from './pages/MyLists'
+import Chains from './pages/Chains'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { isTouchDevice } from './utils'
@@ -34,6 +35,7 @@ const App = () => {
             <Route exact path="/" component={Home}/>
             <Route path="/settings" component={Settings}/>
             <Route path="/mylists" component={MyLists}/>
+            <Route path="/chains" component={Chains}/>
           </DndProvider>      
           <Footer />
         </Container>

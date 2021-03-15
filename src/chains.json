@@ -1,0 +1,21 @@
+{
+  "My day 1": {
+    "activities": [
+        "Basketball",
+        "Camping"
+    ]
+  },
+  "My day 2": {
+    "activities": [
+        "Work",
+        "Yoga"
+    ]
+  },
+  "work + Shop + Gym": {
+    "activities": [
+        "Work",
+        "Grocery shopping",
+        "Gym"
+    ]
+  }
+}

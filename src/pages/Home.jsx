@@ -3,11 +3,16 @@ import { makeStyles } from '@material-ui/styles'
 import ActivityList from '../components/ActivityList'
 import SearchBar from '../components/SearchBar'
 import presets from '../activities.json'
+import SaveChainDialog from '../components/SaveChainDialog'
+import { Typography } from '@material-ui/core'
 
 const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     flexDirection: 'column'
+  },
+  saveChain: {
+    marginTop: 10
   }
 }))
 
@@ -29,6 +34,11 @@ const Home = () => {
     window.localStorage.setItem('cachedActivities', JSON.stringify(activities))
   }, [ activities ])
 
+  const clear = () => {
+    setSelectedActivities([])
+    setSelectedItems([])
+  }
+
   return (
     <div className={classes.root}>
       <SearchBar 
@@ -44,8 +54,21 @@ const Home = () => {
         selectedItems={selectedItems}
         setSelectedItems={setSelectedItems}
       />
+      <div className={classes.saveChain}>
+        {
+          !selectedActivities.length
+            ? <Typography>Select activities to save them to chain</Typography>
+            : 
+            <SaveChainDialog
+              chainActivities={selectedActivities}
+              clear={clear}
+            />
+        }
+      </div>
     </div>
   )
 }
 
 export default Home
+
+

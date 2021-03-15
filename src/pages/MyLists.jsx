@@ -14,10 +14,11 @@ const useStyles = makeStyles(() => ({
 }))
 
 const getCachedLists = () => {
-  const cache = window.localStorage.getItem('cachedMyLists')
+  const cache = window.localStorage.getItem('cachedMyActivities')
+
   return cache
     ? JSON.parse(cache)
-    : undefined
+    : []
 }
 
 const buildAccordions = ( myLists, handleDeleteList ) => {
@@ -36,10 +37,10 @@ const buildAccordions = ( myLists, handleDeleteList ) => {
 
 const Mylists = () => {
   const classes = useStyles()
-  const [ mylists, setMylists ] = useState(getCachedLists() || [])
+  const [ mylists, setMylists ] = useState(getCachedLists())
 
   useEffect(() => {
-    window.localStorage.setItem('cachedMyLists', JSON.stringify(mylists))
+    window.localStorage.setItem('cachedMyActivities', JSON.stringify(mylists))
   }, [ mylists ])
 
 
@@ -54,8 +55,10 @@ const Mylists = () => {
   }
 
   const handleDeleteList = (deletedListName) => {
-    if (deletedListName)
+    if (deletedListName) {
       setMylists(mylists.filter( name => name != deletedListName))
+    }
+    
   }
 
   const handleAddList = (addedListName) => {

@@ -27,6 +27,7 @@ const LabelBottomNavigation = () => {
       <BottomNavigationAction component={Link} to="/" label="Home" value="home" icon={<HomeIcon />} />
       <BottomNavigationAction component={Link} to="/mylists" label="Mylists" value="mylists" icon={<CreateIcon />} />
       <BottomNavigationAction component={Link} to="/settings" label="Settings" value="settings" icon={<SettingsIcon />} />
+      <BottomNavigationAction component={Link} to="/chains" label="Chains" value="chains" icon={<HomeIcon />}/>
     </BottomNavigation>
   )
 }

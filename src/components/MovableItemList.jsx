@@ -35,16 +35,18 @@ const MovableItem = ({ contentItem, index, moveItem }) => {
 
   drag(drop(ref))
 
-  const opacity = isDragging ? 0.4 : 1
+  const opacity = isDragging ? 0.2 : 1
+  const marginTop = 10
 
   return (
-    <div ref={ref} className='movable item' style={{ opacity }}>
+    <div ref={ref} className={'movable item'} style={{ opacity, marginTop }}>
       {contentItem}
     </div>
   )
 }
 
 const MovableItemList = ({ items, moveItem }) => {
+
   const buildMovableItem = (item, index) => {
     return (
       <MovableItem
@@ -57,7 +59,8 @@ const MovableItemList = ({ items, moveItem }) => {
     )
   }
 
-  return <section className='movable-list'>{items.map(buildMovableItem)}</section>
+  return <section> {items.map(buildMovableItem)}</section>
+  
 }
 
 export default MovableItemList
