@@ -3,19 +3,22 @@
     "activities": [
         "Basketball",
         "Camping"
-    ]
+    ],
+    "selectedItems": []
   },
   "My day 2": {
     "activities": [
         "Work",
         "Yoga"
-    ]
+    ],
+    "selectedItems": []
   },
   "work + Shop + Gym": {
     "activities": [
         "Work",
         "Grocery shopping",
         "Gym"
-    ]
+    ],
+    "selectedItems": []
   }
 }

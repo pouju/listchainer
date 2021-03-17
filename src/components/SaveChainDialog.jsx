@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
-const SaveChainDialog = ({ chainActivities, clear }) => {
+const SaveChainDialog = ({ chainActivities, clear, showSuccess }) => {
   const [open, setOpen] = React.useState(false)
   const [ newChainName, setNewChainName ] = useState('')
 
@@ -15,23 +15,36 @@ const SaveChainDialog = ({ chainActivities, clear }) => {
     let chains = window.localStorage.getItem('cachedChains')
     chains = chains ? JSON.parse(chains) : { }
 
+    // do not overwrite
+    if (chains[newChainName]) {
+      return false
+    }
+
     chains[newChainName] = {
-      activities: Object.values(chainActivities)
+      activities: Object.values(chainActivities),
+      selectedItems: []
     }
 
     window.localStorage.setItem('cachedChains', JSON.stringify(chains))
+    return true
   }
 
   const handleClickOpen = () => {
     setOpen(true)
   }
 
+  // must create disabled alerts instead of using window alerts
   const handleClose = (bool) => {
     if (bool == true) {
-      saveCreatedChain()
-      clear()
+      if (saveCreatedChain()) {
+        clear()
+        showSuccess()
+      }
+      else window.alert('Chain name reserved, chain names are unique')
     }
-    setOpen(false)
+    else {
+      setOpen(false)
+    }
   }
 
   return (

@@ -5,6 +5,7 @@ import SearchBar from '../components/SearchBar'
 import presets from '../activities.json'
 import SaveChainDialog from '../components/SaveChainDialog'
 import { Typography } from '@material-ui/core'
+import CreateAlert from '../components/Alert'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -29,6 +30,7 @@ const Home = () => {
   const [ activities, setActivities ] = useState(getCachedActivities() || presets)
   const [ selectedActivities, setSelectedActivities ] = useState([])
   const [ selectedItems, setSelectedItems ] = useState([])
+  const [ showAlert, setShowAlert ] = useState(false)
 
   useEffect(() => {
     window.localStorage.setItem('cachedActivities', JSON.stringify(activities))
@@ -37,6 +39,10 @@ const Home = () => {
   const clear = () => {
     setSelectedActivities([])
     setSelectedItems([])
+  }
+
+  const toggleShowAlert = () => {
+    setShowAlert(!showAlert)
   }
 
   return (
@@ -54,6 +60,11 @@ const Home = () => {
         selectedItems={selectedItems}
         setSelectedItems={setSelectedItems}
       />
+      {
+        showAlert
+          ? <CreateAlert message={'Chain saved'} hideAlert={toggleShowAlert} />
+          : <></>
+      }
       <div className={classes.saveChain}>
         {
           !selectedActivities.length
@@ -62,6 +73,7 @@ const Home = () => {
             <SaveChainDialog
               chainActivities={selectedActivities}
               clear={clear}
+              showSuccess={toggleShowAlert}
             />
         }
       </div>
