@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit, setChainsInEdit, deleteActivityInChain, activities, setActivities, addActivityToChain }) => {
   const classes = useStyles()
   const [ newActivity, setNewActivity ] = useState('')
+  const [ isOpen, setOpen ] = useState(false)
 
   const chainInEdit = (chainName) => chainsInEdit.includes(chainName)
 
@@ -114,7 +115,7 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
   
   
   return (
-    <Accordion style={{ background: `linear-gradient(to right, ${generateChainColor(chain.activities)})` }}>
+    <Accordion onChange={() => setOpen(!isOpen)} style={ isOpen ? { background: '#7BFFBF' } : { background: `linear-gradient(to right, ${generateChainColor(chain.activities)})` } } >
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography className={classes.heading}>{chain.name}</Typography>
         <Typography color='textSecondary' className={classes.secondaryHeading}>
@@ -133,9 +134,12 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
               </IconButton>
             </>
             : 
-            <IconButton className={classes.iconButton} onClick={(event) => toggleChainEditMode(event, chain.name)}>
-              <Edit />
-            </IconButton>
+            isOpen
+              ?
+              <IconButton className={classes.iconButton} onClick={(event) => toggleChainEditMode(event, chain.name)}>
+                <Edit />
+              </IconButton>
+              : <></>
         }
         
       </AccordionSummary>
