@@ -1,19 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
+import { Link } from 'react-router-dom'
+import { green } from '@material-ui/core/colors'
 import ChainAccordion from '../components/ChainAccordion'
 import MovableItemList from '../components/MovableItemList'
 import update from 'immutability-helper'
 import {
+  IconButton,
   Typography
 } from '@material-ui/core'
 import presets from '../activities.json'
 import testChains from '../chains.json'
-import { PrintOutlined } from '@material-ui/icons'
+import { ToggleOff, ToggleOn, Add } from '@material-ui/icons'
 
 const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    width: '100%',
+  },
+  orderBar: {
+    marginLeft: 'auto'
+  },
+  heading: {
+    flexBasis: '80%',
+    flexShrink: 0,
   }
 }))
 
@@ -33,7 +44,7 @@ const getCachedChains = () => {
     : [] // Object.entries(testChains)
 }
 
-const buildChainAccordions = ( chains, activities, setActivities, deleteChain, updateSelectedItems, chainsInEdit, setChainsInEdit, deleteActivityInChain ) => {
+const buildChainAccordions = ( chains, activities, setActivities, deleteChain, updateSelectedItems, chainsInEdit, setChainsInEdit, deleteActivityInChain, addActivityToChain ) => {
 
   const chainsO = chains
     .map(([chainName, data]) => {
@@ -64,6 +75,7 @@ const buildChainAccordions = ( chains, activities, setActivities, deleteChain, u
             deleteActivityInChain={deleteActivityInChain}
             activities={activities}
             setActivities={setActivities}
+            addActivityToChain={addActivityToChain}
           />
         )
       })
@@ -75,7 +87,8 @@ const Chains = () => {
   const [ chains, setChains ] = useState(getCachedChains())
   const [ activities, setActivities ] = useState(getCachedActivities())
   const [ chainsInEdit, setChainsInEdit ] = useState([])
-  
+  const [ dragAllowed, setDragAllowed ] = useState(false)
+   
   useEffect(() => {
     window.localStorage.setItem('cachedActivities', JSON.stringify(activities))
   }, [ activities ])
@@ -114,21 +127,58 @@ const Chains = () => {
     setChains(Object.entries(newChains))
   }
 
-  
+  const addActivityToChain = (chainName, activityName) => {
+    const addedActivity = activities[activityName]
 
-  
+    // create activity ih not exists
+    if (!addedActivity) {
+      const newActivities = { ...activities }
+      newActivities[activityName] = {
+        items: {},
+        pinned: false
+      }
+      setActivities(newActivities)
+    }
 
-  const margin = 10
+    // add activity to chain
+    const newChains = Object.fromEntries(chains)
+    newChains[chainName].activities.push(activityName)
+    setChains(Object.entries(newChains))
+  }
+  
+  const toggleDragAllowed = () => {
+    setDragAllowed(!dragAllowed)
+  }
 
   return (
     <div className={classes.root}>
-      <Typography variant="h4" >
+      <Typography variant="h4" className={classes.heading} >
         Your chains
       </Typography>
+      <div className={classes.orderBar}>
+      
+        {
+          dragAllowed 
+            ?
+            <IconButton onClick={toggleDragAllowed}>
+              <ToggleOn fontSize='large' color="primary"/> reorder on
+            </IconButton>
+            :
+            <IconButton onClick={toggleDragAllowed}>
+              <ToggleOff fontSize='large' /> reorder off
+            </IconButton>
+        }
+        <Link to='/create-chains'>
+          <IconButton >
+            <Add fontSize='large' style={{ color: green[500] }} />
+          </IconButton>
+        </Link>
+      </div>
+      
       {
         !chains.length
-          ? <Typography> You have no chains yet </Typography> 
-          : <MovableItemList items={buildChainAccordions(chains, activities, setActivities, deleteChain, updateSelectedItems, chainsInEdit, setChainsInEdit, deleteActivityInChain)} moveItem={moveChain} />
+          ? <Typography> You have no chains yet. You can create chains in create page </Typography> 
+          : <MovableItemList items={buildChainAccordions(chains, activities, setActivities, deleteChain, updateSelectedItems, chainsInEdit, setChainsInEdit, deleteActivityInChain, addActivityToChain )} moveItem={moveChain} dragAllowed={dragAllowed} />
       }
 
       

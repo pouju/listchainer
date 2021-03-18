@@ -5,16 +5,17 @@ import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles(() => ({
   footer: {
-    margin: '50px',
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginTop: '100px',
+    
   },
   appBar: { 
     top: 'auto', 
     position: 'fixed',
     bottom: 0,
     alignItems: 'center',
-    background: '#A9FFD6'
+    background: '#7BFFBF'
   }
 }))
 

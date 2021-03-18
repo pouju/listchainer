@@ -20,7 +20,7 @@ const EmptyListText = () => {
   const classes = useStyles()
   return (
     <Typography variant="h4" className={classes.text}>
-      No items
+      
     </Typography>
   )
 }

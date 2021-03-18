@@ -8,12 +8,14 @@ import {
   TableBody,
   TableCell,
   TableRow,
+  TextField,
   Typography
 } from '@material-ui/core'
-import { ExpandMore } from '@material-ui/icons'
+import { ExpandMore, Gradient } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
-import { Delete, Edit, Done, CheckCircleOutline } from '@material-ui/icons'
-import { generateColor } from '../utils'
+import { Delete, Edit, Done, CheckCircleOutline, SwapVert } from '@material-ui/icons'
+import { green, red } from '@material-ui/core/colors'
+import { generateColor, generateChainColor } from '../utils'
 import ChainActivityItemListSelect from './ChainActivityItemListSelect'
 import ChainActivityItemListEdit from './ChainActivityItemListEdit'
 
@@ -32,9 +34,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit, setChainsInEdit, deleteActivityInChain, activities, setActivities }) => {
+const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit, setChainsInEdit, deleteActivityInChain, activities, setActivities, addActivityToChain }) => {
   const classes = useStyles()
-  const backgroundColor = generateColor(chain.name)
+  const [ newActivity, setNewActivity ] = useState('')
 
   const chainInEdit = (chainName) => chainsInEdit.includes(chainName)
 
@@ -48,6 +50,14 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
       const newChainsInEdit = chainsInEdit.concat(chainName)
       setChainsInEdit(newChainsInEdit)
       console.log('edit on')
+    }
+  }
+
+  const addActivity = (event) => {
+    event.preventDefault()
+    if (newActivity && !chain.activities.map(act => act.name).includes(newActivity)) {
+      addActivityToChain(chain.name, newActivity)
+      setNewActivity('')
     }
   }
 
@@ -100,9 +110,11 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
       </TableRow>
     )
   }
+
+  
   
   return (
-    <Accordion style={{ backgroundColor }}>
+    <Accordion style={{ background: `linear-gradient(to right, ${generateChainColor(chain.activities)})` }}>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography className={classes.heading}>{chain.name}</Typography>
         <Typography color='textSecondary' className={classes.secondaryHeading}>
@@ -117,7 +129,7 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
                 <Delete />
               </IconButton>
               <IconButton className={classes.iconButton} onClick={(event) => toggleChainEditMode(event, chain.name)}>
-                <CheckCircleOutline />
+                <CheckCircleOutline style={{ color: green[500] }} />
               </IconButton>
             </>
             : 
@@ -134,7 +146,23 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
               ? <TableBody>{chain.activities.map(buildActivityAccordions)}</TableBody>
               : <p>Nothing here. This chain is empty</p>
           }
-          
+          {
+            chainInEdit(chain.name)
+              ?
+              <TableRow>
+                <TableCell colSpan={3}>
+                  <form onSubmit={addActivity}>
+                    <TextField
+                      fullWidth 
+                      placeholder='Add a new activity...' 
+                      error={chain.activities.map(act => act.name).includes(newActivity)}
+                      value={newActivity}
+                      onChange={(event) => setNewActivity(event.target.value)} />
+                  </form>
+                </TableCell>
+              </TableRow>
+              : <></>
+          }
         </Table>
       </AccordionDetails>
     </Accordion>

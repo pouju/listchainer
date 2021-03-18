@@ -18,6 +18,25 @@ const generateColor = (activityName) => {
   return colors[sum % colors.length]
 }
 
+const generateChainColor = (activities) => {
+
+  const totalLength = activities.reduce((count, activity) => count + activity.items.length, 0)
+  let current = 0
+  const intervals = activities.map(activity => {
+    const temp = current
+    current += activity.items.length
+    return [(temp / totalLength) * 100, ((temp + activity.items.length) / totalLength) * 100]
+  })
+
+  const colors = activities
+    .map(activity => [generateColor(activity.name), activity.items.length])
+    .map((colorItems, i) => `${colorItems[0]} ${intervals[i][0]}% ${intervals[i][1]}%`)
+    .join()
+  
+  return colors
+
+}
+
 const isTouchDevice = () => {
   if ('ontouchstart' in window) {
     return true
@@ -27,5 +46,6 @@ const isTouchDevice = () => {
 
 export {
   generateColor,
+  generateChainColor,
   isTouchDevice
 }

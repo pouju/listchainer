@@ -3,7 +3,7 @@ import { useDrag, useDrop } from 'react-dnd'
 
 const type = 'movableitem'
 
-const MovableItem = ({ contentItem, index, moveItem }) => {
+const MovableItem = ({ contentItem, index, moveItem, dragAllowed }) => {
   const ref = useRef(null) // initialize the reference
 
   const [, drop] = useDrop({
@@ -30,7 +30,8 @@ const MovableItem = ({ contentItem, index, moveItem }) => {
     item: { id: contentItem.id, index },
     collect: monitor => ({
       isDragging: monitor.isDragging()
-    })
+    }),
+    canDrag: dragAllowed
   })
 
   drag(drop(ref))
@@ -45,7 +46,7 @@ const MovableItem = ({ contentItem, index, moveItem }) => {
   )
 }
 
-const MovableItemList = ({ items, moveItem }) => {
+const MovableItemList = ({ items, moveItem, dragAllowed }) => {
 
   const buildMovableItem = (item, index) => {
     return (
@@ -54,6 +55,7 @@ const MovableItemList = ({ items, moveItem }) => {
         index={index}
         key={`${item.props.id}-movable-item`}
         moveItem={moveItem}
+        dragAllowed={dragAllowed}
       >
       </MovableItem>
     )

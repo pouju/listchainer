@@ -7,9 +7,8 @@ import {
   Container
 } from '@material-ui/core'
 
-import Home from './pages/Home'
+import CreateChains from './pages/CreateChains'
 import Settings from './pages/Settings'
-import MyLists from './pages/MyLists'
 import Chains from './pages/Chains'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
@@ -32,10 +31,9 @@ const App = () => {
         <Container>
           <Header />
           <DndProvider backend={backendForDND}>
-            <Route exact path="/" component={Home}/>
+            <Route exact path="/" component={Chains}/>
+            <Route path="/create-chains" component={CreateChains}/>
             <Route path="/settings" component={Settings}/>
-            <Route path="/mylists" component={MyLists}/>
-            <Route path="/chains" component={Chains}/>
           </DndProvider>      
           <Footer />
         </Container>

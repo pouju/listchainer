@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 const CreateAlert = ({ message, isError, hideAlert }) => {
   const classes = useStyles()
 
-  setTimeout(hideAlert, 5000)
+  setTimeout(hideAlert, 3000)
 
   return (
     <div className={classes.root}>

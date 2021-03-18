@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
   appbar: {
     alignItems: 'center',
     position: 'fixed',
-    background: '#A9FFD6',
+    background: '#7BFFBF',//'#A9FFD6',
     color: 'BLACK',
     height: '64px'
   },
@@ -29,7 +29,7 @@ const Header = () => {
         <Toolbar>
           <img className={classes.image} src='logo.png' height='64px' />
           <Typography variant="h4">
-            Listchainer
+            ListChainer
           </Typography>
         </Toolbar>
       </AppBar>

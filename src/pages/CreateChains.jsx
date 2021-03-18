@@ -4,7 +4,7 @@ import ActivityList from '../components/ActivityList'
 import SearchBar from '../components/SearchBar'
 import presets from '../activities.json'
 import SaveChainDialog from '../components/SaveChainDialog'
-import { Typography } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import CreateAlert from '../components/Alert'
 
 const useStyles = makeStyles(() => ({
@@ -25,7 +25,7 @@ const getCachedActivities = () => {
     : undefined
 }
 
-const Home = () => {
+const CreateChains = () => {
   const classes = useStyles()
   const [ activities, setActivities ] = useState(getCachedActivities() || presets)
   const [ selectedActivities, setSelectedActivities ] = useState([])
@@ -47,6 +47,9 @@ const Home = () => {
 
   return (
     <div className={classes.root}>
+      <Typography variant="h4" style={{ marginBottom: '20px' }}>
+        Create new chain
+      </Typography>
       <SearchBar 
         activities={activities} 
         setActivities={setActivities}
@@ -68,7 +71,7 @@ const Home = () => {
       <div className={classes.saveChain}>
         {
           !selectedActivities.length
-            ? <Typography>Select activities to save them to chain</Typography>
+            ? <Button disabled>Save Chain</Button>
             : 
             <SaveChainDialog
               chainActivities={selectedActivities}
@@ -81,6 +84,6 @@ const Home = () => {
   )
 }
 
-export default Home
+export default CreateChains
 
 
