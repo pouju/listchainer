@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-const ChainActivityItemListEdit = ({ activity, activities, setActivities, selectedItems, updateSelectedItems }) => {
+const ChainActivityItemListEdit = ({ activity, activities, setActivities, selectedItems, updateSelectedItems, chainName }) => {
   const [ newItem, setNewItem ] = useState('')
   const classes = useStyles()
 
@@ -51,7 +51,9 @@ const ChainActivityItemListEdit = ({ activity, activities, setActivities, select
     setActivities(newActivities)
 
     if (selectedItems.includes(itemName)) {
-      updateSelectedItems(selectedItems.filter(item => item !== itemName))
+      console.log(selectedItems)
+      console.log(selectedItems.filter(item => item !== itemName))
+      updateSelectedItems(chainName, selectedItems.filter(item => item !== itemName))
     }
   }
 

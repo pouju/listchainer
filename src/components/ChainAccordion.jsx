@@ -131,6 +131,7 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
                     setActivities={setActivities}
                     selectedItems={chain.selectedItems}
                     updateSelectedItems={updateSelectedItems}
+                    chainName={chain.name}
                   />
                   : <ChainActivityItemListSelect
                     activity={activity}
