@@ -45,6 +45,9 @@ const colors = [
   '#00FFFF',
 ]
 
+const mainColor = '#62D8FE'
+const mainColorLight = '#99E6FE'
+
 const chainAccordionColor = '#EEEEEE'
 const chainAccordionProgressBarColor = '#7BFFBF'
 
@@ -71,7 +74,7 @@ const generateChainColor = (activities) => {
     .map((colorItems, i) => `${colorItems[0]} ${intervals[i][0]}% ${intervals[i][1]}%`)
     .join()
   
-  return colors
+  return `linear-gradient(to right, ${colors}`
 
 }
 
@@ -87,5 +90,7 @@ export {
   generateChainColor,
   isTouchDevice,
   chainAccordionColor,
-  chainAccordionProgressBarColor
+  chainAccordionProgressBarColor,
+  mainColor,
+  mainColorLight
 }

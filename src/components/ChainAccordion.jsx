@@ -13,10 +13,10 @@ import {
   TextField,
   Typography
 } from '@material-ui/core'
-import { ExpandMore, Gradient } from '@material-ui/icons'
+import { ExpandMore } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
-import { Delete, Edit, Done, CheckCircleOutline, SwapVert } from '@material-ui/icons'
-import { green, red } from '@material-ui/core/colors'
+import { Delete, Edit, CheckCircleOutline } from '@material-ui/icons'
+import { green } from '@material-ui/core/colors'
 import { generateColor, generateChainColor, chainAccordionColor, chainAccordionProgressBarColor } from '../utils'
 import ChainActivityItemListSelect from './ChainActivityItemListSelect'
 import ChainActivityItemListEdit from './ChainActivityItemListEdit'
@@ -78,12 +78,10 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
     event.stopPropagation()
     if (chainsInEdit.includes(chainName)) {
       setChainsInEdit(chainsInEdit.filter(chain => chain != chainName))
-      console.log('edit off')
     }
     else {
       const newChainsInEdit = chainsInEdit.concat(chainName)
       setChainsInEdit(newChainsInEdit)
-      console.log('edit on')
     }
   }
 
@@ -94,7 +92,6 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
       setNewActivity('')
     }
   }
-
 
   const buildActivityAccordions = (activity, i) => {
     const backgroundColor = generateColor(activity.name)
@@ -151,7 +148,7 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
   
   return (
     <Accordion onChange={() => setOpen(!isOpen)} style={{ background: chainAccordionColor }}>
-      <AccordionSummary style={{ background: `linear-gradient(to right, ${generateChainColor(chain.activities)})` }} expandIcon={<ExpandMore />}>
+      <AccordionSummary style={{ background: generateChainColor(chain.activities) }} expandIcon={<ExpandMore />}>
         <Typography className={classes.heading}>{chain.name}</Typography>
         <Typography color='textSecondary' className={classes.secondaryHeading}>
           { chain.selectedItems.length } / { [ ...new Set(chain.activities.reduce((allItems, activity) => allItems.concat(Object.entries(activity.items).map(([_, value]) => value[0])), [])) ].length } packed

@@ -2,6 +2,7 @@ import React from 'react'
 import { AppBar, Toolbar } from '@material-ui/core'
 import BottomNavigation from './BottomNavigation'
 import { makeStyles } from '@material-ui/styles'
+import { mainColor } from '../utils'
 
 const useStyles = makeStyles(() => ({
   footer: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles(() => ({
     position: 'fixed',
     bottom: 0,
     alignItems: 'center',
-    background: '#7BFFBF'
+    background: mainColor
   }
 }))
 

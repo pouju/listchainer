@@ -62,7 +62,6 @@ const ChainActivityItemListEdit = ({ activity, activities, setActivities, select
       key={i}
     >
       <TableCell>{item[0]}</TableCell>
-      {/* <TableCell>packed {item.packs} times</TableCell> */}
       <TableCell>
         <IconButton className={classes.iconButton} onClick={(event) => deleteItem(event, item[0])}>
           <Delete />

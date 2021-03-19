@@ -1,6 +1,7 @@
 import React from 'react'
 import { Typography, AppBar, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import { mainColor } from '../utils'
 
 const useStyles = makeStyles(() => ({
   header: {
@@ -11,7 +12,7 @@ const useStyles = makeStyles(() => ({
   appbar: {
     alignItems: 'center',
     position: 'fixed',
-    background: '#7BFFBF',//'#A9FFD6',
+    background: mainColor,
     color: 'BLACK',
     height: '64px'
   },

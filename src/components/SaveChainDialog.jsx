@@ -15,7 +15,7 @@ const SaveChainDialog = ({ chainActivities, clear, showSuccess }) => {
     let chains = window.localStorage.getItem('cachedChains')
     chains = chains ? JSON.parse(chains) : { }
 
-    // do not overwrite
+    // prevent overwrite
     if (chains[newChainName]) {
       return false
     }

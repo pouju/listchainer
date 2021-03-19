@@ -59,7 +59,6 @@ const ChainActivityItemListSelect = ({ activity, chainName, selectedItems, updat
       selected={isSelected(item[0])}
     >
       <TableCell>{item[0]}</TableCell>
-      {/* <TableCell>packed {item.packs} times</TableCell> */}
       <TableCell padding="checkbox">
         <Checkbox
           checked={isSelected(item[0])}

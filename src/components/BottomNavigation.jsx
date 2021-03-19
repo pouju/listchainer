@@ -5,19 +5,18 @@ import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import HomeIcon from '@material-ui/icons/Home'
 import SettingsIcon from '@material-ui/icons/Settings'
-import CreateIcon from '@material-ui/icons/Create'
 import CreateChain from '@material-ui/icons/PostAdd'
-import { isTouchDevice } from '../utils'
+import { isTouchDevice, mainColor } from '../utils'
 
 
 const useStyles = makeStyles({
   root: {
     width: 700,
-    background: '#7BFFBF'
+    background: mainColor
   },
   rootTouch: {
     width: '100%',
-    background: '#7BFFBF'
+    background: mainColor
   }
 })
 
