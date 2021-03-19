@@ -3,7 +3,9 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Checkbox,
   IconButton,
+  LinearProgress,
   Table,
   TableBody,
   TableCell,
@@ -15,7 +17,7 @@ import { ExpandMore, Gradient } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
 import { Delete, Edit, Done, CheckCircleOutline, SwapVert } from '@material-ui/icons'
 import { green, red } from '@material-ui/core/colors'
-import { generateColor, generateChainColor } from '../utils'
+import { generateColor, generateChainColor, chainAccordionColor, chainAccordionProgressBarColor } from '../utils'
 import ChainActivityItemListSelect from './ChainActivityItemListSelect'
 import ChainActivityItemListEdit from './ChainActivityItemListEdit'
 
@@ -32,6 +34,13 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 'auto',
     marginRight: 20
   },
+  bar: {
+    height: 5,
+    backgroundColor: chainAccordionColor
+  },
+  barPrimary: {
+    backgroundColor: chainAccordionProgressBarColor
+  }
 }))
 
 const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit, setChainsInEdit, deleteActivityInChain, activities, setActivities, addActivityToChain }) => {
@@ -40,6 +49,30 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
   const [ isOpen, setOpen ] = useState(false)
 
   const chainInEdit = (chainName) => chainsInEdit.includes(chainName)
+
+  const isAllItemsSelected = (activity) => activity.items.every(item => chain.selectedItems.includes(item[0]) )
+
+  const progress = () => {
+    const noOfItems = [ ...new Set(chain.activities.reduce((allItems, activity) => allItems.concat(Object.entries(activity.items).map(([_, value]) => value[0])), [])) ].length
+    return chain.selectedItems.length * 100 / noOfItems
+  }
+
+  const handleClick = (event, activity) => {
+    event.stopPropagation()
+    if (isAllItemsSelected(activity)) {
+      const activityItemNames = activity.items.map(item => item[0])
+      updateSelectedItems(chain.name, chain.selectedItems.filter( item => !activityItemNames.includes(item) ))
+    }
+    else {
+      const newSelectedItems = chain.selectedItems
+      activity.items.forEach(item => {
+        if (!newSelectedItems.includes(item[0])) {
+          chain.selectedItems.push(item[0])
+        }
+      })
+      updateSelectedItems(chain.name, newSelectedItems)
+    }
+  }
 
   const toggleChainEditMode = (event, chainName) => {
     event.stopPropagation()
@@ -85,7 +118,11 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
                   <IconButton className={classes.iconButton} onClick={() => deleteActivityInChain(chain.name, activity.name)}>
                     <Delete />
                   </IconButton>
-                  : <></>
+                  : 
+                  <Checkbox
+                    onClick={(event) => handleClick(event, activity)}
+                    checked={isAllItemsSelected(activity)}
+                  /> 
               }
             </AccordionSummary>
             <AccordionDetails>
@@ -111,12 +148,10 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
       </TableRow>
     )
   }
-
-  
   
   return (
-    <Accordion onChange={() => setOpen(!isOpen)} style={ isOpen ? { background: '#7BFFBF' } : { background: `linear-gradient(to right, ${generateChainColor(chain.activities)})` } } >
-      <AccordionSummary expandIcon={<ExpandMore />}>
+    <Accordion onChange={() => setOpen(!isOpen)} style={{ background: chainAccordionColor }}>
+      <AccordionSummary style={{ background: `linear-gradient(to right, ${generateChainColor(chain.activities)})` }} expandIcon={<ExpandMore />}>
         <Typography className={classes.heading}>{chain.name}</Typography>
         <Typography color='textSecondary' className={classes.secondaryHeading}>
           { chain.selectedItems.length } / { [ ...new Set(chain.activities.reduce((allItems, activity) => allItems.concat(Object.entries(activity.items).map(([_, value]) => value[0])), [])) ].length } packed
@@ -141,8 +176,10 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
               </IconButton>
               : <></>
         }
-        
       </AccordionSummary>
+
+      <LinearProgress className={classes.bar} classes={{ barColorPrimary: classes.barPrimary }} variant="determinate" value={progress()} />
+      
       <AccordionDetails>
         <Table size="small">
           {

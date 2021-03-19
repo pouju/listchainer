@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
-import { Link } from 'react-router-dom'
 import { green } from '@material-ui/core/colors'
 import ChainAccordion from '../components/ChainAccordion'
 import MovableItemList from '../components/MovableItemList'
@@ -11,7 +10,7 @@ import {
 } from '@material-ui/core'
 import presets from '../activities.json'
 import testChains from '../chains.json'
-import { ToggleOff, ToggleOn, Add } from '@material-ui/icons'
+import { ToggleOff, ToggleOn } from '@material-ui/icons'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -168,11 +167,7 @@ const Chains = () => {
               <ToggleOff fontSize='large' /> reorder off
             </IconButton>
         }
-        <Link to='/create-chains'>
-          <IconButton >
-            <Add fontSize='large' style={{ color: green[500] }} />
-          </IconButton>
-        </Link>
+        
       </div>
       
       {

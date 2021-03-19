@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
@@ -31,9 +31,9 @@ const LabelBottomNavigation = () => {
 
   return (
     <BottomNavigation value={value} onChange={handleChange} className={ isTouchDevice() ? classes.rootTouch : classes.root }>
-      <BottomNavigationAction component={Link} to="/" label="Chains" value="home" icon={<HomeIcon />} />
-      <BottomNavigationAction component={Link} to="/create-chains" label="New Chain" value="create" icon={<CreateChain />}/>
-      <BottomNavigationAction component={Link} to="/settings" label="Settings" value="settings" icon={<SettingsIcon />} />
+      <BottomNavigationAction component={NavLink} to="/" label="Chains" value="home" icon={<HomeIcon />} />
+      <BottomNavigationAction component={NavLink} to="/create-chains" label="New Chain" value="create" icon={<CreateChain />}/>
+      <BottomNavigationAction component={NavLink} to="/settings" label="Settings" value="settings" icon={<SettingsIcon />} />
     </BottomNavigation>
   )
 }

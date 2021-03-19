@@ -45,6 +45,9 @@ const colors = [
   '#00FFFF',
 ]
 
+const chainAccordionColor = '#EEEEEE'
+const chainAccordionProgressBarColor = '#7BFFBF'
+
 const generateColor = (activityName) => {
   let sum = 0
   for (let i = 0; i < activityName.length; i++) {
@@ -82,5 +85,7 @@ const isTouchDevice = () => {
 export {
   generateColor,
   generateChainColor,
-  isTouchDevice
+  isTouchDevice,
+  chainAccordionColor,
+  chainAccordionProgressBarColor
 }
