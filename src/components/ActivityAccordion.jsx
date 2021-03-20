@@ -3,13 +3,9 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  IconButton,
   Typography
 } from '@material-ui/core'
 import { ExpandMore } from '@material-ui/icons'
-import PinIcon from 'mdi-react/PinIcon'
-import PinOutlineIcon from 'mdi-react/PinOutlineIcon'
-import PinOffIcon from 'mdi-react/PinOffIcon'
 import { makeStyles } from '@material-ui/styles'
 import { generateColor } from '../utils'
 import ItemList from './ItemList'
@@ -39,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
 
 const ActivityAccordion = ({ activity, activities, setActivities, selected, setSelected }) => {
   const classes = useStyles()
-  const backgroundColor = generateColor(activity.name)
+  const backgroundColor = generateColor(activity.name, false)
+  const lighterBgColor  = generateColor(activity.name, true)
 
   const getItems = (
     Object.entries(activity.items)
@@ -50,31 +47,14 @@ const ActivityAccordion = ({ activity, activities, setActivities, selected, setS
       .sort((a, b) => b.name < a.name ? 1 : -1)
   )
 
-  const togglePin = (event, name) => {
-    event.stopPropagation()
-    const newActivities = { ...activities }
-    newActivities[name].pinned = !newActivities[name].pinned
-    setActivities(newActivities)
-  }
-
   return (
     <Accordion style={{ backgroundColor }}>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography className={classes.heading}>
-          {activity.pinned ? <PinIcon className={classes.pinIcon}/> : <></>}
           {activity.name}
         </Typography>
-        <Typography color='textSecondary' className={classes.secondaryHeading}>
-          {getItems.filter(item => selected.includes(item.name)).length} / {getItems.length} packed
-        </Typography>
-        <IconButton 
-          className={classes.iconButton} 
-          onClick={(event) => togglePin(event, activity.name)}
-        >
-          {activity.pinned ? <PinOffIcon /> : <PinOutlineIcon />}
-        </IconButton>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails style={{ backgroundColor: lighterBgColor }}>
         <ItemList
           activity={activity} 
           items={getItems}

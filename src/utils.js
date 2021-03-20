@@ -1,48 +1,16 @@
-import * as muiColors from '@material-ui/core/colors'
-
 const colors = [
-  '#FF7B7B',  // RED
-  '#FFF27B',  // YELLOW
-  '#7BCFFF',  // LIGHT BLUE
-  '#FFC27B',  // ORANGE
-  '#7BFFBF',  // LIGHT GREEN
-  '#7B80FF',  // INDIGO
-  '#EC7BFF',  // PURPLE
-  '#0048BA',
-  '#7CB9E8',
-  '#B284BE',
-  '#EFDECD',
-  '#E52B50',
-  '#3B7A57',
-  '#FF7E00',
-  '#9966CC',
-  '#A4C639',
-  '#915C83',
-  '#008000',
-  '#00FFFF',
-  '#7FFFD4',
-  '#D0FF14',
-  '#FF9966',
-  '#568203',
-  '#89CFF0',
-  '#F4C2C2',
-  '#FF91AF',
-  '#848482',
-  '#F5F5DC',
-  '#3D2B1F',
-  '#54626F',
-  '#ACE5EE',
-  '#1F75FE',
-  '#CD7F32',
-  '#C95A49',
-  '#E23D28',
-  '#9FA91F',
-  '#D2691E',
-  '#F88379',
-  '#8C92AC',
-  '#FBEC5D',
-  '#FFBCD9',
-  '#00FFFF',
+  // Index 0 -> normal, 1 -> light
+  ['#FF7B7B', '#FFA9A9'],  // RED
+  ['#FFF27B', '#FFF7A9'],  // YELLOW
+  ['#7BCFFF', '#A9E0FF'],  // LIGHT BLUE
+  ['#FFC27B', '#FFD7A9'],  // ORANGE
+  ['#7BFFBF', '#A9FFD5'],  // LIGHT GREEN
+  ['#7B80FF', '#A9ACFF'],  // INDIGO
+  ['#EC7BFF', '#F3A9FF'],  // PURPLE
+  ['#85FF7B', '#B0FFA9'],  // LIGHT GREEN
+  ['#49CCBC', '#89DED3'],  // DARK GREEN
+  ['#FF7BD2', '#FFA9E2'],  // PINK
+  ['#6449CC', '#9A89DE']   // DARK INDIGO
 ]
 
 const mainColor = '#62D8FE'
@@ -51,12 +19,12 @@ const mainColorLight = '#99E6FE'
 const chainAccordionColor = '#EEEEEE'
 const chainAccordionProgressBarColor = '#7BFFBF'
 
-const generateColor = (activityName) => {
+const generateColor = (activityName, light) => {
   let sum = 0
   for (let i = 0; i < activityName.length; i++) {
     sum += activityName.charCodeAt(i)
   }
-  return colors[sum % colors.length]
+  return colors[sum % colors.length][light ? 1 : 0]
 }
 
 const generateChainColor = (activities) => {

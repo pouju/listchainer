@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MyListsAccordion = ({ list, handleDelete }) => {
   const classes = useStyles()
-  const backgroundColor = generateColor(list.name, 100)
+  const backgroundColor = generateColor(list.name, false)
 
   const buildRow = (item, i) => (
     <TableRow

@@ -94,7 +94,7 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
   }
 
   const buildActivityAccordions = (activity, i) => {
-    const backgroundColor = generateColor(activity.name)
+    const backgroundColor = generateColor(activity.name, false)
 
     return (
       <TableRow
