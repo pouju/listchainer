@@ -7,49 +7,32 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
-const SaveChainDialog = ({ chainActivities, clear, showSuccess }) => {
-  const [open, setOpen] = React.useState(false)
+const SaveChainDialog = ({ chainActivities }) => {
+  const [ open, setOpen ] = React.useState(false)
   const [ newChainName, setNewChainName ] = useState('')
 
-  const saveCreatedChain = ( ) => {
-    let chains = window.localStorage.getItem('cachedChains')
-    chains = chains ? JSON.parse(chains) : { }
+  let chains = window.localStorage.getItem('cachedChains')
+  chains = chains ? JSON.parse(chains) : { }
 
-    // prevent overwrite
-    if (chains[newChainName]) {
-      return false
-    }
+  const chainExists = () => chains[newChainName] ? true : false
 
+  const saveChain = () => {
     chains[newChainName] = {
       activities: Object.values(chainActivities),
       selectedItems: []
     }
-
     window.localStorage.setItem('cachedChains', JSON.stringify(chains))
-    return true
   }
 
-  const handleClickOpen = () => {
-    setOpen(true)
-  }
-
-  // must create disabled alerts instead of using window alerts
-  const handleClose = (bool) => {
-    if (bool == true) {
-      if (saveCreatedChain()) {
-        clear()
-        showSuccess()
-      }
-      else window.alert('Chain name reserved, chain names are unique')
-    }
-    else {
-      setOpen(false)
-    }
+  const handleClose = (confirm) => {
+    confirm && saveChain()
+    setNewChainName('')
+    setOpen(false)
   }
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button variant="outlined" color="primary" onClick={() => setOpen(true)}>
         Save chain
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -65,6 +48,8 @@ const SaveChainDialog = ({ chainActivities, clear, showSuccess }) => {
             label='Chain name'
             type="text"
             fullWidth
+            error={chainExists()}
+            helperText={chainExists() ? 'Chain already exists!' : ''}
             value={newChainName}
             onChange={(event) => setNewChainName(event.target.value)}
           />
@@ -73,7 +58,7 @@ const SaveChainDialog = ({ chainActivities, clear, showSuccess }) => {
           <Button onClick={() => handleClose(false)} color="primary">
             Cancel
           </Button>
-          <Button onClick={() => handleClose(true)} color="primary">
+          <Button disabled={!newChainName} onClick={() => handleClose(true)} color="primary">
             Save
           </Button>
         </DialogActions>
