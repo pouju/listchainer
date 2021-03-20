@@ -15,8 +15,7 @@ import {
 } from '@material-ui/core'
 import { ExpandMore } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
-import { Delete, Edit, CheckCircleOutline } from '@material-ui/icons'
-import { green } from '@material-ui/core/colors'
+import { Delete, Edit, Save } from '@material-ui/icons'
 import { generateColor, generateChainColor, chainAccordionColor, chainAccordionProgressBarColor } from '../utils'
 import ChainActivityItemListSelect from './ChainActivityItemListSelect'
 import ChainActivityItemListEdit from './ChainActivityItemListEdit'
@@ -28,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     flexBasis: '50%',
     flexShrink: 0,
+    alignSelf: 'center'
   },
   secondaryHeading: {
     alignSelf: 'center',
@@ -40,6 +40,10 @@ const useStyles = makeStyles((theme) => ({
   },
   barPrimary: {
     backgroundColor: chainAccordionProgressBarColor
+  },
+  accordionDetails: {
+    paddingLeft: 0,
+    paddingRight: 0
   }
 }))
 
@@ -95,6 +99,7 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
 
   const buildActivityAccordions = (activity, i) => {
     const backgroundColor = generateColor(activity.name, false)
+    const lightBgColor    = generateColor(activity.name, true)
 
     return (
       <TableRow
@@ -122,7 +127,7 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
                   /> 
               }
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails style={{ backgroundColor: lightBgColor }} >
               {
                 chainInEdit(chain.name) 
                   ? <ChainActivityItemListEdit
@@ -163,7 +168,7 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
                 <Delete />
               </IconButton>
               <IconButton className={classes.iconButton} onClick={(event) => toggleChainEditMode(event, chain.name)}>
-                <CheckCircleOutline style={{ color: green[500] }} />
+                <Save />
               </IconButton>
             </>
             : 
@@ -178,12 +183,12 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
 
       <LinearProgress className={classes.bar} classes={{ barColorPrimary: classes.barPrimary }} variant="determinate" value={progress()} />
       
-      <AccordionDetails>
+      <AccordionDetails className={classes.accordionDetails}>
         <Table size="small">
           {
             chain.activities.length
               ? <TableBody>{chain.activities.map(buildActivityAccordions)}</TableBody>
-              : <p>Nothing here. This chain is empty</p>
+              : <p>Nothing here. This chain is empty.</p>
           }
           {
             chainInEdit(chain.name)
