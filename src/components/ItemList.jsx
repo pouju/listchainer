@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { 
-  Checkbox, 
   IconButton, 
   makeStyles, 
   Table, 
@@ -76,6 +75,8 @@ const ActivityContent = ({ activity, items, activities, setActivities, selected,
     setActivities(newActivities)
   }
 
+  const newItemTextFieldError = () => items.map(item => item.name).includes(newItem)
+
   const buildRow = (item, i) => (
     <TableRow
       hover
@@ -93,11 +94,6 @@ const ActivityContent = ({ activity, items, activities, setActivities, selected,
           <Delete />
         </IconButton>
       </TableCell>
-      <TableCell padding="checkbox">
-        <Checkbox
-          checked={isSelected(item.name)}
-        />
-      </TableCell>
     </TableRow>
   )
 
@@ -111,8 +107,9 @@ const ActivityContent = ({ activity, items, activities, setActivities, selected,
               <TextField
                 fullWidth 
                 placeholder='Add a new item...' 
-                error={items.map(item => item.name).includes(newItem)}
+                error={newItemTextFieldError()}
                 value={newItem}
+                helperText={newItemTextFieldError() ? 'Item already exists!' : ''}
                 onChange={(event) => setNewItem(event.target.value)} />
             </form>
           </TableCell>

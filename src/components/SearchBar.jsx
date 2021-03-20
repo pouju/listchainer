@@ -5,9 +5,8 @@ import Autocomplete from '@material-ui/lab/Autocomplete'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import { generateColor } from '../utils'
-import PinIcon from 'mdi-react/PinIcon'
 import { IconButton } from '@material-ui/core'
-import { Delete } from '@material-ui/icons'
+import { Delete, Favorite, FavoriteBorder } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(3),
     },
   },
-  iconButton: {
+  leftMostIcon: {
     marginLeft: 'auto'
   },
   pinIcon: {
@@ -58,11 +57,22 @@ const SearchBar = ({ activities, setActivities, selectedActivities, setSelectedA
     setActivities(newActivities)
   }
 
+  const toggleFavorite = (event, name) => {
+    event.stopPropagation()
+    const newActivities = { ...activities }
+    newActivities[name].pinned = !newActivities[name].pinned
+    setActivities(newActivities)
+  }
+
   const renderOption = (option) => (
     <>
-      {activities[option].pinned ? <PinIcon className={classes.pinIcon} /> : <></>}
       {option}
-      <IconButton className={classes.iconButton} onClick={(event) => deleteActivity(event, option)}>
+      <IconButton 
+        className={classes.leftMostIcon}
+        onClick={(event) => toggleFavorite(event, option)}>
+        {activities[option].pinned ? <Favorite /> : <FavoriteBorder />}
+      </IconButton>
+      <IconButton onClick={(event) => deleteActivity(event, option)}>
         <Delete />
       </IconButton>
     </>
@@ -84,7 +94,7 @@ const SearchBar = ({ activities, setActivities, selectedActivities, setSelectedA
             <Chip 
               variant="outlined" 
               label={option} {...getTagProps({ index })} 
-              style={{ backgroundColor: generateColor(option) }} 
+              style={{ backgroundColor: generateColor(option, false) }} 
               key={index}
             />
           ))
