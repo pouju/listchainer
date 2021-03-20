@@ -16,6 +16,9 @@ const theme = createMuiTheme({
     MuiIconButton: {
       size: 'small'
     }
+  },
+  typography: {
+    fontFamily: 'Solway'
   }
 })
 
