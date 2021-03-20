@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 
 const LabelBottomNavigation = () => {
   const classes = useStyles()
-  const [value, setValue] = React.useState('home')
+  const [value, setValue] = React.useState(window.location.hash)
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -30,9 +30,9 @@ const LabelBottomNavigation = () => {
 
   return (
     <BottomNavigation value={value} onChange={handleChange} className={ isTouchDevice() ? classes.rootTouch : classes.root }>
-      <BottomNavigationAction component={NavLink} to="/" label="Chains" value="home" icon={<HomeIcon />} />
-      <BottomNavigationAction component={NavLink} to="/create-chains" label="New Chain" value="create" icon={<CreateChain />}/>
-      <BottomNavigationAction component={NavLink} to="/settings" label="Settings" value="settings" icon={<SettingsIcon />} />
+      <BottomNavigationAction component={NavLink} to="/" label="Chains" value="#/" icon={<HomeIcon />} />
+      <BottomNavigationAction component={NavLink} to="/create-chains" label="New Chain" value="#/create-chains" icon={<CreateChain />}/>
+      <BottomNavigationAction component={NavLink} to="/settings" label="Settings" value="#/settings" icon={<SettingsIcon />} />
     </BottomNavigation>
   )
 }
