@@ -53,10 +53,17 @@ const isTouchDevice = () => {
   return false
 }
 
+const alreadyExists = (value, array) => 
+  value && array.map(item => item.toLowerCase()).includes(value.trim().toLowerCase())
+
+const isValidName = (name) => name && name.trim()
+
 export {
   generateColor,
   generateChainColor,
   isTouchDevice,
+  alreadyExists,
+  isValidName,
   chainAccordionColor,
   chainAccordionProgressBarColor,
   mainColor,

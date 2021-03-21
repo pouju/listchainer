@@ -4,7 +4,7 @@ import Chip from '@material-ui/core/Chip'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import { generateColor } from '../utils'
+import { generateColor, isValidName } from '../utils'
 import { IconButton } from '@material-ui/core'
 import { Delete, Favorite, FavoriteBorder } from '@material-ui/icons'
 
@@ -36,8 +36,10 @@ const SearchBar = ({ activities, setActivities, selectedActivities, setSelectedA
   const onChange = (event, value) => {
     const newestItem = value[value.length - 1]
     const wasAddition = value.length > selectedActivities.length
-    if (wasAddition && !activities[newestItem]) createActivity(newestItem)
-    setSelectedActivities(value)
+    if (isValidName(newestItem)) {
+      if (wasAddition && !activities[newestItem]) createActivity(newestItem)
+      setSelectedActivities(value)
+    }
   }
 
   const createActivity = (name) => {
@@ -55,6 +57,7 @@ const SearchBar = ({ activities, setActivities, selectedActivities, setSelectedA
     const newActivities = { ...activities }
     delete newActivities[name]
     setActivities(newActivities)
+    setSelectedActivities(selectedActivities.filter(selected => selected !== name))
   }
 
   const toggleFavorite = (event, name) => {
@@ -87,7 +90,6 @@ const SearchBar = ({ activities, setActivities, selectedActivities, setSelectedA
         value={selectedActivities}
         onChange={onChange}
         freeSolo
-        filterSelectedOptions
         renderOption={renderOption}
         renderTags={(value, getTagProps) =>
           value.map((option, index) => (

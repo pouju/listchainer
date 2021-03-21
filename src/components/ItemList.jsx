@@ -9,107 +9,69 @@ import {
   TextField 
 } from '@material-ui/core'
 import { Delete } from '@material-ui/icons'
+import { alreadyExists, isValidName } from '../utils'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-  },
-  heading: {
-    flexBasis: '70%',
-    flexShrink: 0,
-    alignSelf: 'center',
-    display: 'flex'
-  },
-  secondaryHeading: {
-    alignSelf: 'center'
-  },
   iconButton: {
     float: 'right',
     marginLeft: 'auto'
   },
-  pinIcon: {
+  favoriteIcon: {
     marginRight: '10px'
   }
 }))
 
-
-const ActivityContent = ({ activity, items, activities, setActivities, selected, setSelected }) => {
-  const [ newItem, setNewItem ] = useState('')
+const Item = ({ name, onDelete }) => {
   const classes = useStyles()
 
-  const isSelected = (name) => selected.indexOf(name) !== -1
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name)
-    let newSelected = []
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name)
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1))
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1))
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      )
-    }
-    setSelected(newSelected)
-  }
-
-  const addItem = (event) => {
-    event.preventDefault()
-    if (newItem && !items.map(item => item.name).includes(newItem)) {
-      const newActivities = { ...activities }
-      newActivities[activity.name].items[newItem] = { packs: 0 }
-      setActivities(newActivities)
-      setNewItem('')
-    }
-  }
-
-  const deleteItem = (event, item) => {
-    event.stopPropagation()
-    const newActivities = { ...activities }
-    delete newActivities[activity.name].items[item.name]
-    setActivities(newActivities)
-  }
-
-  const newItemTextFieldError = () => items.map(item => item.name).includes(newItem)
-
-  const buildRow = (item, i) => (
-    <TableRow
-      hover
-      onClick={(event) => handleClick(event, item.name)}
-      role="checkbox"
-      aria-checked={isSelected(item.name)}
-      tabIndex={-1}
-      key={i}
-      selected={isSelected(item.name)}
-    >
-      <TableCell>{item.name}</TableCell>
-      {/* <TableCell>packed {item.packs} times</TableCell> */}
+  return (
+    <TableRow tabIndex={-1}>
+      <TableCell>{name}</TableCell>
       <TableCell>
-        <IconButton className={classes.iconButton} onClick={(event) => deleteItem(event, item)}>
+        <IconButton className={classes.iconButton} onClick={(event) => onDelete(event, name)}>
           <Delete />
         </IconButton>
       </TableCell>
     </TableRow>
   )
+}
+
+const ActivityContent = ({ activity, items, activities, setActivities }) => {
+  const [ newItem, setNewItem ] = useState('')
+  const newItemAlreadyExists = alreadyExists(newItem, items.map(item => item.name))
+
+  const addItem = (event) => {
+    event.preventDefault()
+    if (isValidName(newItem) && !newItemAlreadyExists) {
+      const newActivities = { ...activities }
+      newActivities[activity.name].items[newItem.trim()] = { packs: 0 }
+      setActivities(newActivities)
+      setNewItem('')
+    }
+  }
+
+  const deleteItem = (event, name) => {
+    event.stopPropagation()
+    const newActivities = { ...activities }
+    delete newActivities[activity.name].items[name]
+    setActivities(newActivities)
+  }
 
   return (
     <Table>
       <TableBody>
-        {items.map(buildRow)}
+        {items.map((item, i) => (
+          <Item name={item.name} onDelete={deleteItem} key={i} />
+        ))}
         <TableRow>
           <TableCell colSpan={3}>
             <form onSubmit={addItem}>
               <TextField
                 fullWidth 
                 placeholder='Add a new item...' 
-                error={newItemTextFieldError()}
+                error={newItemAlreadyExists}
                 value={newItem}
-                helperText={newItemTextFieldError() ? 'Item already exists!' : ''}
+                helperText={newItemAlreadyExists ? 'Item already exists!' : ''}
                 onChange={(event) => setNewItem(event.target.value)} />
             </form>
           </TableCell>

@@ -16,9 +16,10 @@ import {
 import { ExpandMore } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
 import { Delete, Edit, Save } from '@material-ui/icons'
-import { generateColor, generateChainColor, chainAccordionColor, chainAccordionProgressBarColor } from '../utils'
+import { generateColor, generateChainColor, chainAccordionColor, chainAccordionProgressBarColor, alreadyExists, isValidName } from '../utils'
 import ChainActivityItemListSelect from './ChainActivityItemListSelect'
 import ChainActivityItemListEdit from './ChainActivityItemListEdit'
+import Autocomplete from '@material-ui/lab/Autocomplete'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,9 +52,9 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
   const classes = useStyles()
   const [ newActivity, setNewActivity ] = useState('')
   const [ isOpen, setOpen ] = useState(false)
-
+  const newActivityAlreadyExists = alreadyExists(newActivity, chain.activities.map(a => a.name))
+  const getAllActivityNames = () => Object.keys(activities)
   const chainInEdit = (chainName) => chainsInEdit.includes(chainName)
-
   const isAllItemsSelected = (activity) => activity.items.every(item => chain.selectedItems.includes(item[0]) )
 
   const progress = () => {
@@ -91,8 +92,8 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
 
   const addActivity = (event) => {
     event.preventDefault()
-    if (newActivity && !chain.activities.map(act => act.name).includes(newActivity)) {
-      addActivityToChain(chain.name, newActivity)
+    if (isValidName(newActivity) && !newActivityAlreadyExists) {
+      addActivityToChain(chain.name.trim(), newActivity)
       setNewActivity('')
     }
   }
@@ -151,7 +152,7 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
       </TableRow>
     )
   }
-  
+    
   return (
     <Accordion onChange={() => setOpen(!isOpen)} style={{ background: chainAccordionColor }}>
       <AccordionSummary style={{ background: generateChainColor(chain.activities) }} expandIcon={<ExpandMore />}>
@@ -171,13 +172,10 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
                 <Save />
               </IconButton>
             </>
-            : 
-            isOpen
-              ?
-              <IconButton className={classes.iconButton} onClick={(event) => toggleChainEditMode(event, chain.name)}>
-                <Edit />
-              </IconButton>
-              : <></>
+            :
+            <IconButton className={classes.iconButton} onClick={(event) => toggleChainEditMode(event, chain.name)}>
+              <Edit />
+            </IconButton>
         }
       </AccordionSummary>
 
@@ -191,21 +189,28 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
               : <p>Nothing here. This chain is empty.</p>
           }
           {
-            chainInEdit(chain.name)
-              ?
-              <TableRow>
-                <TableCell colSpan={3}>
-                  <form onSubmit={addActivity}>
-                    <TextField
-                      fullWidth 
-                      placeholder='Add a new activity...' 
-                      error={chain.activities.map(act => act.name).includes(newActivity)}
-                      value={newActivity}
-                      onChange={(event) => setNewActivity(event.target.value)} />
-                  </form>
-                </TableCell>
-              </TableRow>
-              : <></>
+            chainInEdit(chain.name) &&
+            <TableRow>
+              <TableCell colSpan={3}>
+                <form onSubmit={addActivity}>
+                  <Autocomplete
+                    freeSolo
+                    value={newActivity}
+                    options={getAllActivityNames()}
+                    onChange={(e, value) => setNewActivity(value)}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        fullWidth 
+                        placeholder='Add a new activity...' 
+                        error={newActivityAlreadyExists}
+                        helperText={newActivityAlreadyExists ? 'Activity is already in the chain!' : ''}
+                      />
+                    )}
+                  />
+                </form>
+              </TableCell>
+            </TableRow>
           }
         </Table>
       </AccordionDetails>

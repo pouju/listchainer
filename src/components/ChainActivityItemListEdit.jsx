@@ -9,6 +9,8 @@ import {
   TextField 
 } from '@material-ui/core'
 import { Delete } from '@material-ui/icons'
+import Autocomplete from '@material-ui/lab/Autocomplete'
+import { alreadyExists, isValidName } from '../utils'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,12 +35,14 @@ const useStyles = makeStyles((theme) => ({
 const ChainActivityItemListEdit = ({ activity, activities, setActivities, selectedItems, updateSelectedItems, chainName }) => {
   const [ newItem, setNewItem ] = useState('')
   const classes = useStyles()
+  const newItemAlreadyExists = alreadyExists(newItem, activity.items.map(item => item[0]))
+  const getAllItemNames = () => Object.values(activities).map(activity => Object.keys(activity.items)).flat()
 
   const addItem = (event) => {
     event.preventDefault()
-    if (newItem && !activity.items.map(item => item.name).includes(newItem)) {
+    if (isValidName(newItem) && !newItemAlreadyExists) {
       const newActivities = { ...activities }
-      newActivities[activity.name].items[newItem] = { packs: 0 }
+      newActivities[activity.name].items[newItem.trim()] = { packs: 0 }
       setActivities(newActivities)
       setNewItem('')
     }
@@ -79,12 +83,21 @@ const ChainActivityItemListEdit = ({ activity, activities, setActivities, select
         <TableRow>
           <TableCell colSpan={3}>
             <form onSubmit={addItem}>
-              <TextField
-                fullWidth 
-                placeholder='Add a new item...' 
-                error={activity.items.map(item => item.name).includes(newItem)}
+              <Autocomplete
+                freeSolo
                 value={newItem}
-                onChange={(event) => setNewItem(event.target.value)} />
+                options={getAllItemNames()}
+                onChange={(e, value) => setNewItem(value)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    fullWidth 
+                    placeholder='Add a new item...' 
+                    error={newItemAlreadyExists}
+                    helperText={newItemAlreadyExists ? 'Item already exists!' : ''} 
+                  />
+                )}
+              />
             </form>
           </TableCell>
         </TableRow>
