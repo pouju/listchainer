@@ -36,10 +36,10 @@ const SearchBar = ({ activities, setActivities, selectedActivities, setSelectedA
   const onChange = (event, value) => {
     const newestItem = value[value.length - 1]
     const wasAddition = value.length > selectedActivities.length
-    if (isValidName(newestItem)) {
-      if (wasAddition && !activities[newestItem]) createActivity(newestItem)
-      setSelectedActivities(value)
+    if (wasAddition && isValidName(newestItem) && !activities[newestItem]) {
+      createActivity(newestItem)
     }
+    setSelectedActivities(value)
   }
 
   const createActivity = (name) => {
