@@ -1,38 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { 
-  Checkbox, 
-  makeStyles, 
+  Checkbox,
   Table, 
   TableBody, 
   TableCell, 
-  TableRow, 
+  TableRow,
+  Typography, 
 } from '@material-ui/core'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-  },
-  heading: {
-    flexBasis: '50%',
-    flexShrink: 0,
-    alignSelf: 'center',
-    display: 'flex'
-  },
-  secondaryHeading: {
-    alignSelf: 'center'
-  },
-  iconButton: {
-    float: 'right',
-    marginLeft: 'auto'
-  },
-  pinIcon: {
-    marginRight: '10px'
-  }
-}))
-
-
 const ChainActivityItemListSelect = ({ activity, chainName, selectedItems, updateSelectedItems }) => {
-  const classes = useStyles()
 
   const isSelected = (name) => selectedItems.includes(name)
 
@@ -46,6 +22,16 @@ const ChainActivityItemListSelect = ({ activity, chainName, selectedItems, updat
       updateSelectedItems(chainName, newSelectedItems)
     }
   }
+
+  const EmptyRow = () => (
+    <TableRow>
+      <TableCell>
+        <Typography>
+          This activity contains no items, edit activity to add them.
+        </Typography>
+      </TableCell>
+    </TableRow>
+  )
 
   // item[0] means name
   const buildRow = (item, i) => (
@@ -70,7 +56,11 @@ const ChainActivityItemListSelect = ({ activity, chainName, selectedItems, updat
   return (
     <Table>
       <TableBody>
-        {activity.items.map(buildRow)}
+        { 
+          activity.items.length
+            ? activity.items.map(buildRow)
+            : <EmptyRow />
+        }
       </TableBody>
     </Table>
   )
