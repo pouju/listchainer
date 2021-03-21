@@ -5,7 +5,7 @@ import {
   AccordionSummary,
   Typography
 } from '@material-ui/core'
-import { ExpandMore } from '@material-ui/icons'
+import { ExpandMore, Favorite } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
 import { generateColor } from '../utils'
 import ItemList from './ItemList'
@@ -20,15 +20,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     marginRight: 20
   },
-  secondaryHeading: {
-    alignSelf: 'center',
-    marginLeft: 'auto',
-    marginRight: 20
-  },
   iconButton: {
     float: 'right',
   },
-  pinIcon: {
+  favoriteIcon: {
     marginRight: '10px'
   }
 }))
@@ -51,6 +46,7 @@ const ActivityAccordion = ({ activity, activities, setActivities, selected, setS
     <Accordion style={{ backgroundColor }}>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography className={classes.heading}>
+          {activity.pinned && <Favorite className={classes.favoriteIcon} />}
           {activity.name}
         </Typography>
       </AccordionSummary>
