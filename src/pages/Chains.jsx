@@ -129,12 +129,12 @@ const Chains = () => {
   const addActivityToChain = (chainName, activityName) => {
     const addedActivity = activities[activityName]
 
-    // create activity ih not exists
+    // create activity if not exists
     if (!addedActivity) {
       const newActivities = { ...activities }
       newActivities[activityName] = {
         items: {},
-        pinned: false
+        pinned: true
       }
       setActivities(newActivities)
     }

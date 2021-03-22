@@ -46,7 +46,7 @@ const SearchBar = ({ activities, setActivities, selectedActivities, setSelectedA
     const newActivities = { ...activities }
     newActivities[name] = {
       items: {},
-      pinned: false
+      pinned: true
     }
     setActivities(newActivities)
     console.log('created',name)
