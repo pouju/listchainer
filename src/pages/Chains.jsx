@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
-import { green } from '@material-ui/core/colors'
 import ChainAccordion from '../components/ChainAccordion'
 import MovableItemList from '../components/MovableItemList'
 import update from 'immutability-helper'
@@ -8,9 +7,8 @@ import {
   IconButton,
   Typography
 } from '@material-ui/core'
-import presets from '../activities.json'
-import testChains from '../chains.json'
 import { ToggleOff, ToggleOn } from '@material-ui/icons'
+import { getCachedActivities, getCachedChains } from '../utils'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -26,22 +24,6 @@ const useStyles = makeStyles(() => ({
     flexShrink: 0,
   }
 }))
-
-const getCachedActivities = () => {
-  const cache = window.localStorage.getItem('cachedActivities')
-
-  return cache
-    ? JSON.parse(cache)
-    : presets
-}
-
-const getCachedChains = () => {
-  const cache = window.localStorage.getItem('cachedChains')
-
-  return cache
-    ? Object.entries(JSON.parse(cache))
-    : [] // Object.entries(testChains)
-}
 
 const buildChainAccordions = ( chains, activities, setActivities, deleteChain, updateSelectedItems, chainsInEdit, setChainsInEdit, deleteActivityInChain, addActivityToChain ) => {
 

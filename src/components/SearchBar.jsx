@@ -5,8 +5,9 @@ import Autocomplete from '@material-ui/lab/Autocomplete'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import { generateColor, isValidName } from '../utils'
-import { IconButton } from '@material-ui/core'
+import { IconButton, Tooltip } from '@material-ui/core'
 import { Delete, Favorite, FavoriteBorder } from '@material-ui/icons'
+import { getCachedChains } from '../utils'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +33,8 @@ const SearchBar = ({ activities, setActivities, selectedActivities, setSelectedA
       .sort(([ak, av], [bk , bv]) => bv.pinned - av.pinned)
       .map(([key, value]) => key)
   )
+
+  const activitiesInChains = getCachedChains().map(chain => chain[1].activities).flat()
 
   const onChange = (event, value) => {
     const newestItem = value[value.length - 1]
@@ -67,19 +70,30 @@ const SearchBar = ({ activities, setActivities, selectedActivities, setSelectedA
     setActivities(newActivities)
   }
 
-  const renderOption = (option) => (
-    <>
-      {option}
-      <IconButton 
-        className={classes.leftMostIcon}
-        onClick={(event) => toggleFavorite(event, option)}>
-        {activities[option].pinned ? <Favorite /> : <FavoriteBorder />}
-      </IconButton>
-      <IconButton onClick={(event) => deleteActivity(event, option)}>
-        <Delete />
-      </IconButton>
-    </>
-  )
+  const renderOption = (option) => {
+    const isDeletable = !activitiesInChains.includes(option)
+
+    return (
+      <>
+        {option}
+        <IconButton 
+          className={classes.leftMostIcon}
+          onClick={(event) => toggleFavorite(event, option)}>
+          {activities[option].pinned ? <Favorite /> : <FavoriteBorder />}
+        </IconButton>
+        <Tooltip title={isDeletable ? 'Delete' : 'Included in a chain'}>
+          <span>
+            <IconButton 
+              onClick={(event) => deleteActivity(event, option)}
+              disabled={!isDeletable}
+            >
+              <Delete />
+            </IconButton>
+          </span>
+        </Tooltip>
+      </>
+    )
+  }
 
   return (
     <div className={classes.root}> 

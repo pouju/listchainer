@@ -1,3 +1,21 @@
+import presets from './activities.json'
+
+const getCachedActivities = () => {
+  const cache = window.localStorage.getItem('cachedActivities')
+
+  return cache
+    ? JSON.parse(cache)
+    : presets
+}
+
+const getCachedChains = () => {
+  const cache = window.localStorage.getItem('cachedChains')
+
+  return cache
+    ? Object.entries(JSON.parse(cache))
+    : [] // Object.entries(testChains)
+}
+
 const colors = [
   // Index 0 -> normal, 1 -> light
   ['#FF7B7B', '#FFA9A9'],  // RED
@@ -59,6 +77,8 @@ const alreadyExists = (value, array) =>
 const isValidName = (name) => name && name.trim()
 
 export {
+  getCachedActivities,
+  getCachedChains,
   generateColor,
   generateChainColor,
   isTouchDevice,
