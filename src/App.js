@@ -10,6 +10,7 @@ import {
 import CreateChains from './pages/CreateChains'
 import Settings from './pages/Settings'
 import Chains from './pages/Chains'
+import WelcomeDialog from './components/WelcomeDialog'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { isTouchDevice } from './utils'
@@ -30,6 +31,7 @@ const App = () => {
       <HashRouter>
         <Container>
           <Header />
+          <WelcomeDialog />
           <DndProvider backend={backendForDND}>
             <Route exact path="/" component={Chains}/>
             <Route path="/create-chains" component={CreateChains}/>
