@@ -6,6 +6,7 @@ import presets from '../activities.json'
 import SaveChainDialog from '../components/SaveChainDialog'
 import { Button, Typography } from '@material-ui/core'
 import CreateAlert from '../components/Alert'
+import { getCachedActivities } from '../utils'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -17,17 +18,9 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-const getCachedActivities = () => {
-  const cache = window.localStorage.getItem('cachedActivities')
-
-  return cache
-    ? JSON.parse(cache)
-    : undefined
-}
-
 const CreateChains = () => {
   const classes = useStyles()
-  const [ activities, setActivities ] = useState(getCachedActivities() || presets)
+  const [ activities, setActivities ] = useState(getCachedActivities())
   const [ selectedActivities, setSelectedActivities ] = useState([])
   const [ selectedItems, setSelectedItems ] = useState([])
   const [ showAlert, setShowAlert ] = useState(false)
