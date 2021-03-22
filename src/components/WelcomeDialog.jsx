@@ -45,13 +45,15 @@ const getCachedWelcomeDialogValue = () => {
   else return false
 }
 
-const  WelcomeDialog = () => {
+const  WelcomeDialog = ({ forceOpen, close }) => {
   const classes = useStyles()
-  const [open, setOpen] = React.useState(getCachedWelcomeDialogValue())
+  const [open, setOpen] = React.useState( forceOpen ? true : getCachedWelcomeDialogValue() )
 
   const handleClose = () => {
     setOpen(false)
     window.localStorage.setItem('cachedWelcomeDialogValue', 'false')
+
+    if (close) close()
   }
 
   return (
