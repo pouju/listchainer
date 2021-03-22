@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
-const SaveChainDialog = ({ chainActivities }) => {
+const SaveChainDialog = ({ chainActivities, clear, showSuccess }) => {
   const [ open, setOpen ] = React.useState(false)
   const [ newChainName, setNewChainName ] = useState('')
 
@@ -25,9 +25,13 @@ const SaveChainDialog = ({ chainActivities }) => {
   }
 
   const handleClose = (confirm) => {
-    confirm && saveChain()
-    setNewChainName('')
-    setOpen(false)
+    if (confirm) {
+      saveChain()
+      clear()
+      showSuccess()
+      setNewChainName('')
+      setOpen(false)
+    }
   }
 
   return (
