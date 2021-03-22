@@ -39,7 +39,7 @@ const SaveChainDialog = ({ chainActivities, clear, showSuccess }) => {
       <Button variant="outlined" color="primary" onClick={() => setOpen(true)}>
         Save chain
       </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog open={open} onClose={() => handleClose(false)} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Save chain</DialogTitle>
         <DialogContent>
           <DialogContentText>
