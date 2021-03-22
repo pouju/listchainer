@@ -29,9 +29,9 @@ const SaveChainDialog = ({ chainActivities, clear, showSuccess }) => {
       saveChain()
       clear()
       showSuccess()
-      setNewChainName('')
-      setOpen(false)
     }
+    setNewChainName('')
+    setOpen(false)
   }
 
   return (
