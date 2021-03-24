@@ -19,6 +19,11 @@ const theme = createMuiTheme({
   },
   typography: {
     fontFamily: 'Solway'
+  },
+  palette: {
+    secondary: {
+      main: '#555'
+    }
   }
 })
 
