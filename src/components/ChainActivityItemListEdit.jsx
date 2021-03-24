@@ -8,7 +8,7 @@ import {
   TableRow, 
   TextField 
 } from '@material-ui/core'
-import { Delete } from '@material-ui/icons'
+import { Delete, Add } from '@material-ui/icons'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { alreadyExists, isValidName } from '../utils'
 
@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
   iconButton: {
     float: 'right',
     marginLeft: 'auto'
+  },
+  addItemForm: {
+    display: 'flex'
   }
 }))
 
@@ -36,7 +39,7 @@ const ChainActivityItemListEdit = ({ activity, activities, setActivities, select
   const [ newItem, setNewItem ] = useState('')
   const classes = useStyles()
   const newItemAlreadyExists = alreadyExists(newItem, activity.items.map(item => item[0]))
-  const getAllItemNames = () => Object.values(activities).map(activity => Object.keys(activity.items)).flat()
+  const getAllItemNames = () => Object.values(activities).map(activity => Object.keys(activity.items)).flat().filter(name => name.toLowerCase().includes(newItem.toLowerCase()))
 
   const addItem = (event) => {
     event.preventDefault()
@@ -81,13 +84,15 @@ const ChainActivityItemListEdit = ({ activity, activities, setActivities, select
       <TableBody>
         {activity.items.map(buildRow)}
         <TableRow>
-          <TableCell colSpan={3}>
-            <form onSubmit={addItem}>
+          <TableCell colSpan={3} >
+            <form onSubmit={addItem} className={classes.addItemForm}>
               <Autocomplete
+                style={{ width: '95%' }}
                 freeSolo
                 value={newItem}
                 options={getAllItemNames()}
-                onChange={(e, value) => setNewItem(value)}
+                onInputChange={(e, value) => setNewItem(value)}
+                ListboxProps={{ style: { position: 'absolute', backgroundColor: '#fafafa', width: '100%' } }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -98,7 +103,10 @@ const ChainActivityItemListEdit = ({ activity, activities, setActivities, select
                   />
                 )}
               />
-            </form>
+              <IconButton className={classes.iconButton} onClick={addItem}>
+                <Add />
+              </IconButton>
+            </form> 
           </TableCell>
         </TableRow>
       </TableBody>

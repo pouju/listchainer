@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core'
 import { ExpandMore } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
-import { Delete, Edit, Save } from '@material-ui/icons'
+import { Delete, Edit, Save, Add } from '@material-ui/icons'
 import { generateColor, generateChainColor, chainAccordionColor, chainAccordionProgressBarColor, alreadyExists, isValidName } from '../utils'
 import ChainActivityItemListSelect from './ChainActivityItemListSelect'
 import ChainActivityItemListEdit from './ChainActivityItemListEdit'
@@ -45,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
   accordionDetails: {
     paddingLeft: 0,
     paddingRight: 0
+  },
+  addActivityForm: {
+    display: 'flex'
   }
 }))
 
@@ -53,7 +56,7 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
   const [ newActivity, setNewActivity ] = useState('')
   const [ isOpen, setOpen ] = useState(false)
   const newActivityAlreadyExists = alreadyExists(newActivity, chain.activities.map(a => a.name))
-  const getAllActivityNames = () => Object.keys(activities)
+  const getAllActivityNames = () => Object.keys(activities).filter(name => name.toLowerCase().includes(newActivity.toLowerCase()))
   const chainInEdit = (chainName) => chainsInEdit.includes(chainName)
   const isAllItemsSelected = (activity) => activity.items.every(item => chain.selectedItems.includes(item[0]) )
 
@@ -91,7 +94,7 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
   }
 
   const addActivity = (event) => {
-    event.preventDefault()
+    if (event) event.preventDefault()
     if (isValidName(newActivity) && !newActivityAlreadyExists) {
       addActivityToChain(chain.name.trim(), newActivity)
       setNewActivity('')
@@ -192,12 +195,14 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
             chainInEdit(chain.name) &&
             <TableRow>
               <TableCell colSpan={3}>
-                <form onSubmit={addActivity}>
+                <form onSubmit={addActivity} className={classes.addActivityForm}>
                   <Autocomplete
+                    style={{ width: '95%' }}
                     freeSolo
                     value={newActivity}
                     options={getAllActivityNames()}
-                    onChange={(e, value) => setNewActivity(value)}
+                    onInputChange={ (e, value) => setNewActivity(value) }
+                    ListboxProps={{ style: { position: 'absolute', backgroundColor: '#fafafa', width: '100%' } }}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -208,6 +213,9 @@ const ChainAccordion = ({ chain, handleDelete, updateSelectedItems, chainsInEdit
                       />
                     )}
                   />
+                  <IconButton onClick={() => addActivity()}>
+                    <Add />
+                  </IconButton>
                 </form>
               </TableCell>
             </TableRow>
