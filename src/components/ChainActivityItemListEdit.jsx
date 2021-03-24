@@ -39,7 +39,7 @@ const ChainActivityItemListEdit = ({ activity, activities, setActivities, select
   const [ newItem, setNewItem ] = useState('')
   const classes = useStyles()
   const newItemAlreadyExists = alreadyExists(newItem, activity.items.map(item => item[0]))
-  const getAllItemNames = () => Object.values(activities).map(activity => Object.keys(activity.items)).flat().filter(name => name.toLowerCase().includes(newItem.toLowerCase()))
+  const getAllItemNames = () => [...new Set(Object.values(activities).map(activity => Object.keys(activity.items)).flat())].filter(name => name.toLowerCase().includes(newItem.toLowerCase()))
 
   const addItem = (event) => {
     event.preventDefault()
