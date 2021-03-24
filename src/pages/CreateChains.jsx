@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import ActivityList from '../components/ActivityList'
 import SearchBar from '../components/SearchBar'
-import presets from '../activities.json'
 import SaveChainDialog from '../components/SaveChainDialog'
-import { Button, Typography } from '@material-ui/core'
+import { Button, Tooltip, Typography } from '@material-ui/core'
 import CreateAlert from '../components/Alert'
 import { getCachedActivities } from '../utils'
+import { Help } from '@material-ui/icons'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -15,6 +15,9 @@ const useStyles = makeStyles(() => ({
   },
   saveChain: {
     marginTop: 10
+  },
+  info: {
+    marginLeft: 10,
   }
 }))
 
@@ -38,11 +41,20 @@ const CreateChains = () => {
     setShowAlert(!showAlert)
   }
 
+  const infoText = 
+    `Start typing to get suggestions or create a new activity by typing a name and pressing Enter.
+    You can pin activities to the top of the list by pressing the heart button and delete activities
+    by pressing the trash can button. Note that you can't delete activities that are part of a chain.`
+
   return (
     <div className={classes.root}>
       <Typography variant="h4" style={{ marginBottom: '20px' }}>
         Create new chain
+        <Tooltip color='secondary' className={classes.info} title={infoText}>
+          <Help />
+        </Tooltip>
       </Typography>
+      
       <SearchBar 
         activities={activities} 
         setActivities={setActivities}
