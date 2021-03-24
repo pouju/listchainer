@@ -104,6 +104,7 @@ const SearchBar = ({ activities, setActivities, selectedActivities, setSelectedA
         value={selectedActivities}
         onChange={onChange}
         freeSolo
+        ListboxProps={{ style: { position: 'absolute', backgroundColor: '#fafafa', width: '100%' } }}
         renderOption={renderOption}
         renderTags={(value, getTagProps) =>
           value.map((option, index) => (
